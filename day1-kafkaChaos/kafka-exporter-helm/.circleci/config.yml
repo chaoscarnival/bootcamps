@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  lint-charts:
+    docker:
+      - image: quay.io/helmpack/chart-testing:v2.3.3
+    steps:
+      - checkout
+      - run:
+          command: ct lint --all
+
+workflows:
+  version: 2
+  lint:
+    jobs:
+      - lint-charts

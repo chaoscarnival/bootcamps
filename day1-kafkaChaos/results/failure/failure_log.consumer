@@ -1,0 +1,30 @@
+demo-user1@ip-172-31-31-75:~$ kubectl logs -f kafka-liveness-extxyu -n kafka -c kafka-consumer
+
+
+[2021-02-10 12:37:43] message_index 4 produced @ Wed Feb 10 12:37:42 UTC 2021
+[2021-02-10 12:37:43,605] WARN [Consumer clientId=consumer-1, groupId=console-consumer-7280 could not be established. Broker may not be available. (org.apache.kafka.clients.NetworkClient)
+[2021-02-10 12:37:44] message_index 5 produced @ Wed Feb 10 12:37:43 UTC 2021
+[2021-02-10 12:37:46] message_index 6 produced @ Wed Feb 10 12:37:45 UTC 2021
+[2021-02-10 12:37:47] message_index 7 produced @ Wed Feb 10 12:37:46 UTC 2021
+[2021-02-10 12:37:48] message_index 8 produced @ Wed Feb 10 12:37:47 UTC 2021
+[2021-02-10 12:37:50] message_index 9 produced @ Wed Feb 10 12:37:49 UTC 2021
+[2021-02-10 12:37:51] message_index 10 produced @ Wed Feb 10 12:37:50 UTC 2021
+[2021-02-10 12:37:52] message_index 11 produced @ Wed Feb 10 12:37:51 UTC 2021
+[2021-02-10 12:37:54] message_index 12 produced @ Wed Feb 10 12:37:53 UTC 2021
+[2021-02-10 12:37:55] message_index 13 produced @ Wed Feb 10 12:37:54 UTC 2021
+[2021-02-10 12:37:57] message_index 14 produced @ Wed Feb 10 12:37:55 UTC 2021
+[2021-02-10 12:37:58] message_index 15 produced @ Wed Feb 10 12:37:57 UTC 2021
+[2021-02-10 12:38:00] message_index 16 produced @ Wed Feb 10 12:37:58 UTC 2021
+[2021-02-10 12:38:02] message_index 17 produced @ Wed Feb 10 12:38:00 UTC 2021
+[2021-02-10 12:38:03] message_index 18 produced @ Wed Feb 10 12:38:02 UTC 2021
+[2021-02-10 12:38:04] message_index 19 produced @ Wed Feb 10 12:38:03 UTC 2021
+[2021-02-10 12:38:06] message_index 20 produced @ Wed Feb 10 12:38:05 UTC 2021
+[2021-02-10 12:38:07] message_index 21 produced @ Wed Feb 10 12:38:06 UTC 2021
+[2021-02-10 12:38:08] message_index 22 produced @ Wed Feb 10 12:38:07 UTC 2021
+[2021-02-10 12:38:10] message_index 23 produced @ Wed Feb 10 12:38:09 UTC 2021
+[2021-02-10 12:38:11] message_index 24 produced @ Wed Feb 10 12:38:10 UTC 2021
+[2021-02-10 12:38:13] message_index 25 produced @ Wed Feb 10 12:38:12 UTC 2021
+[2021-02-10 12:38:14] message_index 26 produced @ Wed Feb 10 12:38:13 UTC 2021
+[2021-02-10 12:38:15] message_index 27 produced @ Wed Feb 10 12:38:14 UTC 2021
+[2021-02-10 12:38:45,763] ERROR Error processing message, terminating consumer process:  (kafka.tools.ConsoleConsumer$)org.apache.kafka.common.errors.TimeoutException
+Processed a total of 25 messages

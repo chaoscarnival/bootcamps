@@ -1,0 +1,36 @@
+Name:         kafka-broker-pod-failure-kafka-broker-pod-failure
+Namespace:    litmus
+Labels:       app.kubernetes.io/component=experiment-job
+              app.kubernetes.io/part-of=litmus
+              app.kubernetes.io/version=latest
+              chaosUID=058b975c-6081-4a00-9dd9-9a54d2744822
+              controller-uid=08d649fa-c26c-48e6-bb63-6f3eb3978881
+              job-name=kafka-broker-pod-failure-oynshm
+              name=kafka-broker-pod-failure-kafka-broker-pod-failure
+Annotations:  <none>
+API Version:  litmuschaos.io/v1alpha1
+Kind:         ChaosResult
+Metadata:
+  Creation Timestamp:  2021-02-10T11:56:26Z
+  Generation:          2
+  Resource Version:    1402828
+  Self Link:           /apis/litmuschaos.io/v1alpha1/namespaces/litmus/chaosresults/kafka-broker-pod-failure-kafka-broker-pod-failure
+  UID:                 5d1a747c-4f5a-423b-9a94-d60438972f68
+Spec:
+  Engine:      kafka-broker-pod-failure
+  Experiment:  kafka-broker-pod-failure
+Status:
+  Experimentstatus:
+    Fail Step:                 N/A
+    Phase:                     Completed
+    Probe Success Percentage:  100
+    Verdict:                   Pass
+  History:
+    Failed Runs:   0
+    Passed Runs:   1
+    Stopped Runs:  0
+Events:
+  Type    Reason   Age   From                                   Message
+  ----    ------   ----  ----                                   -------
+  Normal  Awaited  36m   kafka-broker-pod-failure-oynshm-fwj7s  experiment: kafka-broker-pod-failure, Result: Awaited
+  Normal  Pass     34m   kafka-broker-pod-failure-oynshm-fwj7s  experiment: kafka-broker-pod-failure, Result: Pass

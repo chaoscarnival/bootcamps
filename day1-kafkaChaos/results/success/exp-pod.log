@@ -1,0 +1,133 @@
+W0210 11:56:26.256222       1 client_config.go:541] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
+time="2021-02-10T11:56:26Z" level=info msg="Experiment Name: kafka-broker-pod-failure"
+time="2021-02-10T11:56:26Z" level=info msg="[PreReq]: Getting the ENV for the kafka-broker-pod-failure"
+time="2021-02-10T11:56:26Z" level=info msg="[PreReq]: Updating the chaos result of kafka-broker-pod-failure experiment (SOT)"
+time="2021-02-10T11:56:26Z" level=info msg="The application informations are as follows" Kafka Label="app=kafka" Ramp Time=0 Kafka Namespace=kafka
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: Verify that the Kafka cluster is healthy(pre-chaos)"
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: Verify that all kafka pods are running"
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-1 Readiness=true
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-1 Readiness=true
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-2 Readiness=true
+time="2021-02-10T11:56:26Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-2
+time="2021-02-10T11:56:28Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-10T11:56:28Z" level=info msg="[Status]: The status of Pods are as follows" Pod=kafka-kafka-0 Status=Running
+time="2021-02-10T11:56:28Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=kafka-kafka-1
+time="2021-02-10T11:56:28Z" level=info msg="[Status]: The status of Pods are as follows" Pod=kafka-kafka-2 Status=Running
+time="2021-02-10T11:56:30Z" level=info msg="[Status]: Verify that all zookeeper pods are running"
+time="2021-02-10T11:56:30Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-10T11:56:30Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kubernetes-zookeeper Pod=zookeeper-instance-zookeeper-0
+time="2021-02-10T11:56:30Z" level=info msg="[Status]: The Container status are as follows" container=kubernetes-zookeeper Pod=zookeeper-instance-zookeeper-1 Readiness=true
+time="2021-02-10T11:56:30Z" level=info msg="[Status]: The Container status are as follows" container=kubernetes-zookeeper Pod=zookeeper-instance-zookeeper-2 Readiness=true
+time="2021-02-10T11:56:32Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-10T11:56:32Z" level=info msg="[Status]: The status of Pods are as follows" Pod=zookeeper-instance-zookeeper-0 Status=Running
+time="2021-02-10T11:56:32Z" level=info msg="[Status]: The status of Pods are as follows" Pod=zookeeper-instance-zookeeper-1 Status=Running
+time="2021-02-10T11:56:32Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=zookeeper-instance-zookeeper-2
+time="2021-02-10T11:56:34Z" level=info msg="[Liveness]: Set the kafka topic name"
+time="2021-02-10T11:56:34Z" level=info msg="[Liveness]: Generate the kafka liveness spec from template"
+time="2021-02-10T11:56:34Z" level=info msg="[Liveness]: Confirm that the kafka liveness pod is running"
+time="2021-02-10T11:56:34Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-10T11:56:36Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-10T11:56:42Z" level=info msg="[Status]: The status of Pods are as follows" Pod=kafka-liveness-xhmkqj Status=Running
+time="2021-02-10T11:56:44Z" level=info msg="[Liveness]: Obtain the leader broker ordinality for the topic (partition) created by kafka-liveness"
+time="2021-02-10T11:56:46Z" level=info msg="[Liveness]: Determine the leader broker pod name"
+time="2021-02-10T11:56:46Z" level=info msg="Kafka partition leader is kafka-kafka-0"
+time="2021-02-10T11:56:46Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-02-10T11:56:46Z" level=info msg="[Info]: Killing the following pods" PodName=kafka-kafka-1
+time="2021-02-10T11:56:46Z" level=info msg="[Wait]: Wait for the chaos interval 20s"
+time="2021-02-10T11:57:06Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-02-10T11:57:06Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-10T11:57:06Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:06Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:08Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:08Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:10Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:10Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-0
+time="2021-02-10T11:57:12Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-0
+time="2021-02-10T11:57:12Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-0
+time="2021-02-10T11:57:14Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-0
+time="2021-02-10T11:57:14Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-0
+time="2021-02-10T11:57:16Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-0 Readiness=true container=k8skafka
+time="2021-02-10T11:57:16Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-0
+time="2021-02-10T11:57:18Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:18Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:18Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-1 Readiness=true container=k8skafka
+time="2021-02-10T11:57:18Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-1 Readiness=true
+time="2021-02-10T11:57:18Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-2
+time="2021-02-10T11:57:18Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-2 Readiness=true
+time="2021-02-10T11:57:20Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-10T11:57:20Z" level=info msg="[Status]: The status of Pods are as follows" Pod=kafka-kafka-0 Status=Running
+time="2021-02-10T11:57:20Z" level=info msg="[Status]: The status of Pods are as follows" Pod=kafka-kafka-1 Status=Running
+time="2021-02-10T11:57:20Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=kafka-kafka-2
+time="2021-02-10T11:57:22Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-02-10T11:57:22Z" level=info msg="[Info]: Killing the following pods" PodName=kafka-kafka-2
+time="2021-02-10T11:57:22Z" level=info msg="[Wait]: Wait for the chaos interval 20s"
+time="2021-02-10T11:57:42Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-02-10T11:57:42Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-10T11:57:42Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:42Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-0
+time="2021-02-10T11:57:42Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-1 Readiness=true container=k8skafka
+time="2021-02-10T11:57:42Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-1 Readiness=true
+time="2021-02-10T11:57:44Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-0
+time="2021-02-10T11:57:44Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-0
+time="2021-02-10T11:57:44Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-1 Readiness=true
+time="2021-02-10T11:57:44Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-1
+time="2021-02-10T11:57:46Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:46Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:46Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-1
+time="2021-02-10T11:57:46Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-1
+time="2021-02-10T11:57:48Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:48Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-0 Readiness=true container=kafka-node-exporter
+time="2021-02-10T11:57:48Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-1 Readiness=true container=k8skafka
+time="2021-02-10T11:57:48Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-1 Readiness=true container=kafka-node-exporter
+time="2021-02-10T11:57:50Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-0
+time="2021-02-10T11:57:50Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:50Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-1
+time="2021-02-10T11:57:50Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-1 Readiness=true
+time="2021-02-10T11:57:52Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-0 Readiness=true
+time="2021-02-10T11:57:52Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-0
+time="2021-02-10T11:57:52Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-1 Readiness=true container=k8skafka
+time="2021-02-10T11:57:52Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-1 Readiness=true
+time="2021-02-10T11:57:54Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-0 Readiness=true container=k8skafka
+time="2021-02-10T11:57:54Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-0 Readiness=true container=kafka-node-exporter
+time="2021-02-10T11:57:54Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-1
+time="2021-02-10T11:57:54Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-kafka-1 Readiness=true container=kafka-node-exporter
+time="2021-02-10T11:57:54Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-2 Readiness=true
+time="2021-02-10T11:57:54Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-2 Readiness=true
+time="2021-02-10T11:57:56Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-10T11:57:56Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=kafka-kafka-0
+time="2021-02-10T11:57:56Z" level=info msg="[Status]: The status of Pods are as follows" Pod=kafka-kafka-1 Status=Running
+time="2021-02-10T11:57:56Z" level=info msg="[Status]: The status of Pods are as follows" Pod=kafka-kafka-2 Status=Running
+time="2021-02-10T11:57:58Z" level=info msg="[Chaos]: Time is up for experiment: kafka-broker-pod-failure"
+time="2021-02-10T11:57:58Z" level=info msg="[Completion]: kafka-broker-pod-failure chaos is done"
+time="2021-02-10T11:57:58Z" level=info msg="[Confirmation]: The application pod has been deleted successfully"
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: Verify that the Kafka cluster is healthy(post-chaos)"
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: Verify that all kafka pods are running"
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-0
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-0
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=k8skafka Pod=kafka-kafka-1
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: The Container status are as follows" container=kafka-node-exporter Pod=kafka-kafka-1 Readiness=true
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: The Container status are as follows" container=k8skafka Pod=kafka-kafka-2 Readiness=true
+time="2021-02-10T11:57:58Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kafka-node-exporter Pod=kafka-kafka-2
+time="2021-02-10T11:58:00Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-10T11:58:00Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=kafka-kafka-0
+time="2021-02-10T11:58:00Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=kafka-kafka-1
+time="2021-02-10T11:58:00Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=kafka-kafka-2
+time="2021-02-10T11:58:02Z" level=info msg="[Status]: Verify that all zookeeper pods are running"
+time="2021-02-10T11:58:02Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-10T11:58:02Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=kubernetes-zookeeper Pod=zookeeper-instance-zookeeper-0
+time="2021-02-10T11:58:02Z" level=info msg="[Status]: The Container status are as follows" container=kubernetes-zookeeper Pod=zookeeper-instance-zookeeper-1 Readiness=true
+time="2021-02-10T11:58:02Z" level=info msg="[Status]: The Container status are as follows" container=kubernetes-zookeeper Pod=zookeeper-instance-zookeeper-2 Readiness=true
+time="2021-02-10T11:58:04Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-10T11:58:04Z" level=info msg="[Status]: The status of Pods are as follows" Pod=zookeeper-instance-zookeeper-0 Status=Running
+time="2021-02-10T11:58:04Z" level=info msg="[Status]: The status of Pods are as follows" Pod=zookeeper-instance-zookeeper-1 Status=Running
+time="2021-02-10T11:58:04Z" level=info msg="[Status]: The status of Pods are as follows" Pod=zookeeper-instance-zookeeper-2 Status=Running
+time="2021-02-10T11:58:06Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-10T11:58:06Z" level=info msg="[Status]: The Container status are as follows" container=kafka-consumer Pod=kafka-liveness-xhmkqj Readiness=true
+time="2021-02-10T11:58:06Z" level=info msg="[Status]: The Container status are as follows" Pod=kafka-liveness-xhmkqj Readiness=true container=kafka-producer
+time="2021-02-10T11:58:08Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-10T11:58:08Z" level=info msg="[Status]: The status of Pods are as follows" Pod=kafka-liveness-xhmkqj Status=Running
+time="2021-02-10T11:58:51Z" level=info msg="[The End]: Updating the chaos result of kafka pod delete experiment (EOT)"

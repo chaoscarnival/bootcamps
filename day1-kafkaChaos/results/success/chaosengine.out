@@ -1,0 +1,88 @@
+Name:         kafka-broker-pod-failure
+Namespace:    litmus
+Labels:       <none>
+Annotations:  <none>
+API Version:  litmuschaos.io/v1alpha1
+Kind:         ChaosEngine
+Metadata:
+  Creation Timestamp:  2021-02-10T11:56:22Z
+  Finalizers:
+    chaosengine.litmuschaos.io/finalizer
+  Generation:        30
+  Resource Version:  1402877
+  Self Link:         /apis/litmuschaos.io/v1alpha1/namespaces/litmus/chaosengines/kafka-broker-pod-failure
+  UID:               058b975c-6081-4a00-9dd9-9a54d2744822
+Spec:
+  Annotation Check:  false
+  Appinfo:
+    Appkind:              statefulset
+    Applabel:             app=kafka
+    Appns:                kafka
+  Chaos Service Account:  litmus-admin
+  Components:
+    Runner:
+      Image:  litmuschaos/chaos-runner:1.12.0
+      Resources:
+  Engine State:  stop
+  Experiments:
+    Name:  kafka-broker-pod-failure
+    Spec:
+      Components:
+        Env:
+          Name:   KAFKA_REPLICATION_FACTOR
+          Value:  3
+          Name:   KAFKA_LABEL
+          Value:  app=kafka
+          Name:   KAFKA_NAMESPACE
+          Value:  kafka
+          Name:   KAFKA_SERVICE
+          Value:  kafka-svc
+          Name:   KAFKA_PORT
+          Value:  9092
+          Name:   KAFKA_CONSUMER_TIMEOUT
+          Value:  30000
+          Name:   KAFKA_INSTANCE_NAME
+          Name:   ZOOKEEPER_NAMESPACE
+          Value:  kafka
+          Name:   ZOOKEEPER_LABEL
+          Value:  app=zookeeper
+          Name:   ZOOKEEPER_SERVICE
+          Value:  zookeeper-instance-cs
+          Name:   ZOOKEEPER_PORT
+          Value:  2181
+          Name:   TOTAL_CHAOS_DURATION
+          Value:  60
+          Name:   CHAOS_INTERVAL
+          Value:  20
+          Name:   FORCE
+          Value:  false
+          Name:   KAFKA_LIVENESS_STREAM
+          Value:  enabled
+        Resources:
+        Status Check Timeouts:
+          Delay:        2
+          Timeout:      60
+      Rank:             0
+  Job Clean Up Policy:  retain
+  Monitoring:           true
+Status:
+  Engine Status:  completed
+  Experiments:
+    Experiment Pod:    kafka-broker-pod-failure-oynshm-fwj7s
+    Last Update Time:  2021-02-10T11:59:05Z
+    Name:              kafka-broker-pod-failure
+    Runner:            kafka-broker-pod-failure-runner
+    Status:            Completed
+    Verdict:           Pass
+Events:
+  Type    Reason                     Age                From                                   Message
+  ----    ------                     ----               ----                                   -------
+  Normal  ChaosEngineInitialized     35m                chaos-operator                         Identifying app under test & launching kafka-broker-pod-failure-runner
+  Normal  ExperimentJobCreate        35m                kafka-broker-pod-failure-runner        Experiment Job kafka-broker-pod-failure-oynshm for Chaos Experiment: kafka-broker-pod-failure
+  Normal  ExperimentDependencyCheck  35m                kafka-broker-pod-failure-runner        Experiment resources validated for Chaos Experiment: kafka-broker-pod-failure
+  Normal  PreChaosCheck              34m                kafka-broker-pod-failure-oynshm-fwj7s  AUT: Running
+  Normal  ChaosInject                34m (x2 over 34m)  kafka-broker-pod-failure-oynshm-fwj7s  Injecting kafka-broker-pod-failure chaos on application pod
+  Normal  PostChaosCheck             33m                kafka-broker-pod-failure-oynshm-fwj7s  AUT: Running
+  Normal  Summary                    32m                kafka-broker-pod-failure-oynshm-fwj7s  kafka-broker-pod-failure experiment has been Passed
+  Normal  ExperimentJobCleanUp       32m                kafka-broker-pod-failure-runner        Experiment Job kafka-broker-pod-failure-oynshm will be retained
+  Normal  ChaosEngineCompleted       32m                chaos-operator                         ChaosEngine completed, will delete or retain the resources according to jobCleanUpPolicy

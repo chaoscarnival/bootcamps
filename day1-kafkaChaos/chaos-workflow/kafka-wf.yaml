@@ -1,0 +1,111 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: kafka-chaos-
+  namespace: litmus
+spec:
+  arguments:
+    parameters:
+      - name: adminModeNamespace
+        value: "litmus"
+  entrypoint: kafka-chaos
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceAccountName: argo-chaos
+  templates:
+    - name: kafka-chaos
+      steps:
+        - - name: install-chaos-experiments
+            template: install-chaos-experiments
+        - - name: kafka-broker-pod-failure
+            template: kafka-broker-pod-failure
+        - - name: revert-chaos
+            template: revert-chaos
+    - name: install-chaos-experiments
+      container:
+        args:
+          - kubectl apply -f
+            https://github.com/litmuschaos/chaos-charts/raw/master/charts/kafka/kafka-broker-pod-failure/experiment.yaml
+            -n {{workflow.parameters.adminModeNamespace}} | sleep 30
+        command:
+          - sh
+          - -c
+        image: lachlanevenson/k8s-kubectl
+    - name: kafka-broker-pod-failure
+      inputs:
+        artifacts:
+          - name: demo
+            path: /tmp/chaosengine-kafka-broker-pod-failure.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  name: kafka-broker-pod-failure
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                spec:
+                  annotationCheck: "false"
+                  engineState: active
+                  auxiliaryAppInfo: ""
+                  appinfo:
+                    appns: kafka
+                    applabel: app=kafka
+                    appkind: statefulset
+                  chaosServiceAccount: litmus-admin
+                  monitoring: true
+                  jobCleanUpPolicy: retain
+                  experiments:
+                    - name: kafka-broker-pod-failure
+                      spec:
+                        components:
+                          statusCheckTimeouts:
+                            delay: 2
+                            timeout: 90
+                          env:
+                            - name: KAFKA_REPLICATION_FACTOR
+                              value: "3"
+                            - name: KAFKA_LABEL
+                              value: app=kafka
+                            - name: KAFKA_NAMESPACE
+                              value: kafka
+                            - name: KAFKA_SERVICE
+                              value: kafka-svc
+                            - name: KAFKA_PORT
+                              value: "9092"
+                            - name: KAFKA_CONSUMER_TIMEOUT
+                              value: "30000"
+                            - name: KAFKA_INSTANCE_NAME
+                              value: ""
+                            - name: ZOOKEEPER_NAMESPACE
+                              value: kafka
+                            - name: ZOOKEEPER_LABEL
+                              value: app=zookeeper
+                            - name: ZOOKEEPER_SERVICE
+                              value: zookeeper-instance-cs
+                            - name: ZOOKEEPER_PORT
+                              value: "2181"
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "60"
+                            - name: CHAOS_INTERVAL
+                              value: "20"
+                            - name: FORCE
+                              value: "false"
+                            - name: KAFKA_LIVENESS_STREAM
+                              value: enabled
+      container:
+        args:
+          - -file=/tmp/chaosengine-kafka-broker-pod-failure.yaml
+          - -saveName=/tmp/engine-name
+        image: litmuschaos/litmus-checker:latest
+    - name: revert-chaos
+      container:
+        args:
+          - kubectl delete chaosengines --all -n
+            {{workflow.parameters.adminModeNamespace}}
+        command:
+          - sh
+          - -c
+        image: lachlanevenson/k8s-kubectl
+
+
