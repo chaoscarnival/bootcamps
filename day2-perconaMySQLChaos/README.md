@@ -50,3 +50,5 @@ Steady State Hypothesis: All PXC noeds are active & part of the quorum. Applicat
 - Schedule the chaos workflows for [case-a](https://github.com/chaoscarnival/bootcamps/blob/main/day2-perconaMySQLChaos/chaos-workflow/pxc-node-nw-disruption-3s/percona-chaos-wf.yaml) & [case-b](https://github.com/chaoscarnival/bootcamps/blob/main/day2-perconaMySQLChaos/chaos-workflow/pxc-node-nw-disruption-10s/percona-chaos-wf.yaml), with visualization of workflows on the Litmus Portal & chaos-interleaved PMM dashboards 
 
 - Verify the ChaosEngine & ChaosResult Statuses to know the experiment verdict post workflow completion. Sample results (including experiment pod logs, chaosresult dumps, client logs & PXC logs) for both cases can be found [here](https://github.com/chaoscarnival/bootcamps/tree/main/day2-perconaMySQLChaos/results)
+
+More Chaos Scenarios on Percona can be found in [Vadim's talk in ChaosCarnival](https://www.youtube.com/watch?v=fSgtUflRqCU)
