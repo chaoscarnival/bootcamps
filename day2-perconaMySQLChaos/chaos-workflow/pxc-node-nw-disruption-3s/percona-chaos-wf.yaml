@@ -1,0 +1,196 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: percona-chaos-
+  namespace: litmus
+spec:
+  entrypoint: percona-chaos
+  serviceAccountName: argo-chaos
+  securityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+  arguments:
+    parameters:
+      - name: adminModeNamespace
+        value: "litmus"
+  templates:
+    - name: percona-chaos
+      steps:
+        - - name: install-pod-network-loss
+            template: install-pod-network-loss
+        - - name: run-pod-network-loss
+            template: run-pod-network-loss
+        - - name: revert-chaos
+            template: revert-chaos
+
+    - name: install-pod-network-loss
+      inputs:
+        artifacts:
+          - name: install-pod-network-loss
+            path: /tmp/pod-network-loss.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                description:
+                  message: |
+                    Injects network packet loss on pods belonging to an app deployment
+                kind: ChaosExperiment
+                metadata:
+                  name: pod-network-loss
+                spec:
+                  definition:
+                    scope: Namespaced
+                    permissions:
+                      - apiGroups:
+                          - ""
+                          - "batch"
+                          - "apps"
+                          - "apps.openshift.io"
+                          - "argoproj.io"
+                          - "litmuschaos.io"
+                        resources:
+                          - "jobs"
+                          - "pods"
+                          - "pods/log"
+                          - "replicationcontrollers"
+                          - "deployments"
+                          - "statefulsets"
+                          - "daemonsets"
+                          - "replicasets"
+                          - "deploymentconfigs"
+                          - "rollouts"
+                          - "pods/exec"
+                          - "events"
+                          - "chaosengines"
+                          - "chaosexperiments"
+                          - "chaosresults"
+                        verbs:
+                          - "create"
+                          - "list"
+                          - "get"
+                          - "patch"
+                          - "update"
+                          - "delete"
+                          - "deletecollection"
+                    image: "litmuschaos/go-runner:1.12.2"
+                    imagePullPolicy: Always
+                    args:
+                    - -c
+                    - ./experiments -name pod-network-loss
+                    command:
+                    - /bin/bash
+                    
+                    env:
+                    - name: TARGET_CONTAINER
+                      value: ''
+                    - name: LIB_IMAGE
+                      value: 'litmuschaos/go-runner:1.12.2' 
+                    - name: NETWORK_INTERFACE
+                      value: 'eth0'
+                    - name: TC_IMAGE
+                      value: 'gaiadocker/iproute2'
+                    - name: NETWORK_PACKET_LOSS_PERCENTAGE
+                      value: '100' #in PERCENTAGE
+                    - name: TOTAL_CHAOS_DURATION
+                      value: '60' # in seconds
+                    - name: RAMP_TIME
+                      value: ''
+                    - name: LIB
+                      value: 'litmus'
+                    - name: PODS_AFFECTED_PERC
+                      value: ''
+                    - name: TARGET_PODS
+                      value: ''
+                    - name: CONTAINER_RUNTIME
+                      value: 'docker'
+                    - name: DESTINATION_IPS
+                      value: ''
+                    - name: DESTINATION_HOSTS
+                      value: ''
+                    - name: SOCKET_PATH
+                      value: '/var/run/docker.sock'
+                    - name: SEQUENCE
+                      value: 'parallel'
+                    labels:
+                      name: pod-network-loss
+      container:
+        image: lachlanevenson/k8s-kubectl
+        command: [sh, -c]
+        args: [ "kubectl apply -f /tmp/pod-network-loss.yaml -n {{workflow.parameters.adminModeNamespace}}",]
+    
+    - name: run-pod-network-loss
+      inputs:
+        artifacts:
+          - name: percona-network-chaos
+            path: /tmp/chaosengine.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  name: percona-network-chaos
+                  namespace: {{workflow.parameters.adminModeNamespace}}
+                spec:
+                  appinfo:
+                    appns: 'default'
+                    applabel: 'app.kubernetes.io/name=percona-xtradb-cluster'
+                    appkind: 'statefulset'
+                  jobCleanUpPolicy: 'retain'
+                  monitoring: true
+                  annotationCheck: 'false'
+                  engineState: 'active'
+                  auxiliaryAppInfo: ''
+                  chaosServiceAccount: litmus-admin
+                  components:
+                    runner:
+                      imagePullPolicy: Always
+                  experiments:
+                    - name: pod-network-loss
+                      spec:
+                        probe:
+                        - name: "check-client-load"
+                          type: "k8sProbe"
+                          k8sProbe/inputs:
+                            command: 
+                              group: ""
+                              version: "v1"
+                              resource: "pods"
+                              namespace: "default"
+                              fieldSelector: "metadata.name=sysbench-client,status.phase=Running"
+                          operation: "present"
+                          mode: "Continuous"
+                          runProperties:
+                            probeTimeout: 2
+                            interval: 2
+                            retry: 1
+                            initialDelaySeconds: 2
+                            probePollingInterval: 2
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: '3' 
+                            - name: NETWORK_INTERFACE
+                              value: 'eth0'
+                            - name: NETWORK_PACKET_LOSS_PERCENTAGE
+                              value: '100'
+                            - name: CONTAINER_RUNTIME
+                              value: 'docker' 
+                            - name: SOCKET_PATH
+                              value: '/var/run/docker.sock'                
+                            - name: TARGET_PODS
+                              value: 'cluster1-pxc-1'                
+                            - name: DESTINATION_HOSTS
+                              value: 'cluster1-pxc-0,cluster1-pxc-2'                
+      container:
+        image: litmuschaos/litmus-checker:latest
+        args: ["-file=/tmp/chaosengine.yaml","-saveName=/tmp/engine-name"]  
+    
+    - name: revert-chaos
+      container:
+        image: lachlanevenson/k8s-kubectl
+        command: [sh, -c]
+        args: 
+          [ 
+            "kubectl delete chaosengine percona-network-chaos -n {{workflow.parameters.adminModeNamespace}}",
+          ]
+

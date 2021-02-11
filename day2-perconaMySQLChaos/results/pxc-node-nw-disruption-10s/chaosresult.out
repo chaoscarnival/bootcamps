@@ -1,0 +1,72 @@
+Name:         percona-network-chaos-pod-network-loss
+Namespace:    litmus
+Labels:       chaosUID=1c82adf0-2479-4d41-aa29-d96bd4f68ab4
+              controller-uid=0fa6fc1a-4698-4212-8830-193a00dd8bd3
+              job-name=pod-network-loss-ljxrzn
+              name=percona-network-chaos-pod-network-loss
+Annotations:  <none>
+API Version:  litmuschaos.io/v1alpha1
+Kind:         ChaosResult
+Metadata:
+  Creation Timestamp:  2021-02-08T20:33:03Z
+  Generation:          28
+  Managed Fields:
+    API Version:  litmuschaos.io/v1alpha1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .:
+          f:chaosUID:
+          f:controller-uid:
+          f:job-name:
+          f:name:
+      f:spec:
+        .:
+        f:engine:
+        f:experiment:
+      f:status:
+        .:
+        f:experimentstatus:
+          .:
+          f:failStep:
+          f:phase:
+          f:probeSuccessPercentage:
+          f:verdict:
+        f:history:
+          .:
+          f:failedRuns:
+          f:passedRuns:
+          f:stoppedRuns:
+        f:probeStatus:
+    Manager:         experiments
+    Operation:       Update
+    Time:            2021-02-08T20:33:25Z
+  Resource Version:  947468
+  Self Link:         /apis/litmuschaos.io/v1alpha1/namespaces/litmus/chaosresults/percona-network-chaos-pod-network-loss
+  UID:               0533759b-fd75-41f3-8723-d068da0f557e
+Spec:
+  Engine:      percona-network-chaos
+  Experiment:  pod-network-loss
+Status:
+  Experimentstatus:
+    Fail Step:                 N/A
+    Phase:                     Completed
+    Probe Success Percentage:  100
+    Verdict:                   Pass
+  History:
+    Failed Runs:   4
+    Passed Runs:   10
+    Stopped Runs:  0
+  Probe Status:
+    Name:  check-client-load
+    Status:
+      Continuous:  Passed 👍 
+    Type:          k8sProbe
+Events:
+  Type    Reason   Age    From                           Message
+  ----    ------   ----   ----                           -------
+  Normal  Awaited  93s    pod-network-loss-ljxrzn-5btlp  experiment: pod-network-loss, Result: Awaited
+  Normal  Pass     68s    pod-network-loss-ljxrzn-5btlp  experiment: pod-network-loss, Result: Pass
+
+

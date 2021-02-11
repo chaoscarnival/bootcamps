@@ -1,0 +1,66 @@
+W0211 12:23:05.130798       1 client_config.go:541] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
+time="2021-02-11T12:23:05Z" level=info msg="Experiment Name: pod-network-loss"
+time="2021-02-11T12:23:05Z" level=info msg="[PreReq]: Getting the ENV for the  experiment"
+time="2021-02-11T12:23:05Z" level=info msg="[PreReq]: Updating the chaos result of pod-network-loss experiment (SOT)"
+time="2021-02-11T12:23:05Z" level=info msg="The application information is as follows\n" Namespace=default Label="app.kubernetes.io/name=percona-xtradb-cluster" Ramp Time=0
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: Verify that the AUT (Application Under Test) is running (pre-chaos)"
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" container=haproxy Pod=cluster1-haproxy-0 Readiness=true
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=pxc-monit Pod=cluster1-haproxy-0
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" Pod=cluster1-haproxy-1 Readiness=true container=haproxy
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" container=pxc-monit Pod=cluster1-haproxy-1 Readiness=true
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=haproxy Pod=cluster1-haproxy-2
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=pxc-monit Pod=cluster1-haproxy-2
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" container=pmm-client Pod=cluster1-pxc-0 Readiness=true
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" container=pxc Pod=cluster1-pxc-0 Readiness=true
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" Pod=cluster1-pxc-1 Readiness=true container=pmm-client
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" container=pxc Pod=cluster1-pxc-1 Readiness=true
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=pmm-client Pod=cluster1-pxc-2
+time="2021-02-11T12:23:05Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=pxc Pod=cluster1-pxc-2
+time="2021-02-11T12:23:07Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-11T12:23:07Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-haproxy-0 Status=Running
+time="2021-02-11T12:23:07Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-haproxy-1 Status=Running
+time="2021-02-11T12:23:07Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-haproxy-2 Status=Running
+time="2021-02-11T12:23:07Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-pxc-0 Status=Running
+time="2021-02-11T12:23:07Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-pxc-1 Status=Running
+time="2021-02-11T12:23:07Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-pxc-2 Status=Running
+time="2021-02-11T12:23:09Z" level=info msg="[Probe]: The k8s probe information is as follows" Expected Result= Run Properties="{2 2 1 2 2}" Mode=Continuous Phase=PreChaos Name=check-client-load Command="{ v1 pods default metadata.name=sysbench-client,status.phase=Running }"
+time="2021-02-11T12:23:09Z" level=info msg="[Wait]: Waiting for 2s before probe execution"
+time="2021-02-11T12:23:09Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-02-11T12:23:09Z" level=info msg="Target pods list for chaos, [cluster1-pxc-1]"
+time="2021-02-11T12:23:09Z" level=info msg="[Info]: Details of application under chaos injection" PodName=cluster1-pxc-1 NodeName=aks-agentpool-42930121-vmss000001 ContainerName=pmm-client
+time="2021-02-11T12:23:09Z" level=info msg="[Status]: Checking the status of the helper pods"
+time="2021-02-11T12:23:09Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-11T12:23:11Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-11T12:23:13Z" level=info msg="[Status]: The status of Pods are as follows" Pod=pod-network-loss-iqazkl Status=Running
+time="2021-02-11T12:23:15Z" level=info msg="[Wait]: waiting till the completion of the helper pod"
+time="2021-02-11T12:23:15Z" level=info msg="helper pod status: Running"
+time="2021-02-11T12:23:16Z" level=info msg="helper pod status: Succeeded"
+time="2021-02-11T12:23:16Z" level=info msg="[Status]: The running status of Pods are as follows" Pod=pod-network-loss-iqazkl Status=Succeeded
+time="2021-02-11T12:23:17Z" level=info msg="[Cleanup]: Deleting all the helper pod"
+time="2021-02-11T12:23:19Z" level=info msg="[Confirmation]: The pod network loss chaos has been applied"
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: Verify that the AUT (Application Under Test) is running (post-chaos)"
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Pod=cluster1-haproxy-0 Readiness=true container=haproxy
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" container=pxc-monit Pod=cluster1-haproxy-0 Readiness=true
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=haproxy Pod=cluster1-haproxy-1
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=pxc-monit Pod=cluster1-haproxy-1
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" container=haproxy Pod=cluster1-haproxy-2 Readiness=true
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=pxc-monit Pod=cluster1-haproxy-2
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Pod=cluster1-pxc-0 Readiness=true container=pmm-client
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Pod=cluster1-pxc-0 Readiness=true container=pxc
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" container=pmm-client Pod=cluster1-pxc-1 Readiness=true
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Pod=cluster1-pxc-1 Readiness=true container=pxc
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Pod=cluster1-pxc-2 Readiness=true container=pmm-client
+time="2021-02-11T12:23:19Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=pxc Pod=cluster1-pxc-2
+time="2021-02-11T12:23:21Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-02-11T12:23:21Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-haproxy-0 Status=Running
+time="2021-02-11T12:23:21Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-haproxy-1 Status=Running
+time="2021-02-11T12:23:21Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-haproxy-2 Status=Running
+time="2021-02-11T12:23:21Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=cluster1-pxc-0
+time="2021-02-11T12:23:21Z" level=info msg="[Status]: The status of Pods are as follows" Pod=cluster1-pxc-1 Status=Running
+time="2021-02-11T12:23:21Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=cluster1-pxc-2
+time="2021-02-11T12:23:23Z" level=info msg="[Probe]: check-client-load probe has been Passed 😄 " ProbeInstance=PostChaos ProbeStatus=Passed ProbeName=check-client-load ProbeType=k8sProbe
+time="2021-02-11T12:23:23Z" level=info msg="[The End]: Updating the chaos result of pod-network-loss experiment (EOT)"
+
+

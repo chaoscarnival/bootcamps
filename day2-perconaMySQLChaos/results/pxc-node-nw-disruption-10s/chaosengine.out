@@ -1,0 +1,146 @@
+Name:         percona-network-chaos
+Namespace:    litmus
+Labels:       <none>
+Annotations:  <none>
+API Version:  litmuschaos.io/v1alpha1
+Kind:         ChaosEngine
+Metadata:
+  Creation Timestamp:  2021-02-11T12:35:41Z
+  Finalizers:
+    chaosengine.litmuschaos.io/finalizer
+  Generation:  10
+  Managed Fields:
+    API Version:  litmuschaos.io/v1alpha1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:spec:
+        .:
+        f:annotationCheck:
+        f:appinfo:
+          .:
+          f:appkind:
+          f:applabel:
+          f:appns:
+        f:chaosServiceAccount:
+        f:components:
+          .:
+          f:runner:
+            .:
+            f:imagePullPolicy:
+        f:jobCleanUpPolicy:
+        f:monitoring:
+    Manager:      checker
+    Operation:    Update
+    Time:         2021-02-11T12:35:41Z
+    API Version:  litmuschaos.io/v1alpha1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:status:
+        f:experiments:
+    Manager:      chaos-runner
+    Operation:    Update
+    Time:         2021-02-11T12:35:43Z
+    API Version:  litmuschaos.io/v1alpha1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:finalizers:
+          .:
+          v:"chaosengine.litmuschaos.io/finalizer":
+      f:spec:
+        f:components:
+          f:runner:
+            f:image:
+            f:resources:
+        f:engineState:
+        f:experiments:
+      f:status:
+        .:
+        f:engineStatus:
+    Manager:         chaos-operator
+    Operation:       Update
+    Time:            2021-02-11T12:36:24Z
+  Resource Version:  947536
+  Self Link:         /apis/litmuschaos.io/v1alpha1/namespaces/litmus/chaosengines/percona-network-chaos
+  UID:               1c82adf0-2479-4d41-aa29-d96bd4f68ab4
+Spec:
+  Annotation Check:  false
+  Appinfo:
+    Appkind:              statefulset
+    Applabel:             app.kubernetes.io/name=percona-xtradb-cluster
+    Appns:                default
+  Chaos Service Account:  litmus-admin
+  Components:
+    Runner:
+      Image:              litmuschaos/chaos-runner:1.12.0
+      Image Pull Policy:  Always
+      Resources:
+  Engine State:  stop
+  Experiments:
+    Name:  pod-network-loss
+    Spec:
+      Components:
+        Env:
+          Name:   TOTAL_CHAOS_DURATION
+          Value:  10
+          Name:   NETWORK_INTERFACE
+          Value:  eth0
+          Name:   NETWORK_PACKET_LOSS_PERCENTAGE
+          Value:  100
+          Name:   CONTAINER_RUNTIME
+          Value:  docker
+          Name:   SOCKET_PATH
+          Value:  /var/run/docker.sock
+          Name:   TARGET_PODS
+          Value:  cluster1-pxc-1
+          Name:   DESTINATION_HOSTS
+          Value:  cluster1-pxc-0,cluster1-pxc-2
+        Resources:
+        Status Check Timeouts:
+      Probe:
+        cmdProbe/inputs:
+          Comparator:
+        httpProbe/inputs:
+        k8sProbe/inputs:
+          Command:
+            Field Selector:  metadata.name=sysbench-client,status.phase=Running
+            Namespace:       default
+            Resource:        pods
+            Version:         v1
+        Mode:                Continuous
+        Name:                check-client-load
+        Operation:           present
+        promProbe/inputs:
+          Comparator:
+        Run Properties:
+          Initial Delay Seconds:   2
+          Interval:                2
+          Probe Polling Interval:  2
+          Probe Timeout:           2
+          Retry:                   1
+        Type:                      k8sProbe
+      Rank:                        0
+  Job Clean Up Policy:             retain
+  Monitoring:                      true
+Status:
+  Engine Status:  completed
+  Experiments:
+    Experiment Pod:    pod-network-loss-ljxrzn-5btlp
+    Last Update Time:  2021-02-11T12:36:23Z
+    Name:              pod-network-loss
+    Runner:            percona-network-chaos-runner
+    Status:            Completed
+    Verdict:           Pass
+Events:
+  Type    Reason                     Age   From                           Message
+  ----    ------                     ----  ----                           -------
+  Normal  ChaosEngineInitialized     46s   chaos-operator                 Identifying app under test & launching percona-network-chaos-runner
+  Normal  ExperimentJobCreate        44s   percona-network-chaos-runner   Experiment Job pod-network-loss-ljxrzn for Chaos Experiment: pod-network-loss
+  Normal  ExperimentDependencyCheck  44s   percona-network-chaos-runner   Experiment resources validated for Chaos Experiment: pod-network-loss
+  Normal  PreChaosCheck              38s   pod-network-loss-ljxrzn-5btlp  AUT: Running, Probes: Successful
+  Normal  ChaosInject                35s   pod-network-loss-bwgqcz        Injecting pod-network-loss chaos on application pod
+  Normal  PostChaosCheck             17s   pod-network-loss-ljxrzn-5btlp  AUT: Running, Probes: Successful
+  Normal  Summary                    17s   pod-network-loss-ljxrzn-5btlp  pod-network-loss experiment has been Passed
+  Normal  ExperimentJobCleanUp       4s    percona-network-chaos-runner   Experiment Job pod-network-loss-ljxrzn will be retained
+  Normal  ChaosEngineCompleted       3s    chaos-operator                 ChaosEngine completed, will delete or retain the resources according to 
+
