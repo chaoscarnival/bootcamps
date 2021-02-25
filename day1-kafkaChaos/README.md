@@ -1,7 +1,7 @@
 # Kafka Broker Pod Failure Chaos Workflow 
 
 
-### PreRequisites (only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch. Not needed if you have a pre-packaged environment provided by litmus bootcamp organizers) 
+#### PreRequisites (only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch. Not needed if you have a pre-packaged environment provided by litmus bootcamp organizers) 
 
 - Install Kafka Cluster on Kubernetes (the demo uses [KUDO](https://kudo.dev/docs/runbooks/kafka/install.html#installing-the-operator) to install this)
 - Install the Litmus (Portal) Control Plane. You can use the step provided in the [Portal Documentation](https://github.com/litmuschaos/litmus/tree/master/litmus-portal#applying-k8s-manifest)
@@ -18,7 +18,7 @@
 
 Reach out to [Udit Gaurav](udit.gaurav@mayadata.io) or [Shubham Chaudhary](shubham.chaudhary@mayadata.io) for on-demand lab sessions. 
 
-### UseCase & Hypothesis 
+## UseCase & Hypothesis 
 
 The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothesize & arrive upon the correct value for a deployment attribute (message timeout on kafka consumer) for a given cluster environment (3 kafka brokers using default/standard storage class), at the same time observing & validating some critical kafka metrics. More details on what the scenario entails is provided below: 
 
@@ -48,7 +48,7 @@ The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothe
   ![image](https://user-images.githubusercontent.com/21166217/109118845-dc866a00-7769-11eb-9e52-40c6e089594f.png)
 
 
-### Demo Steps 
+## Demo Steps 
 
 (To learn more about using the portal please
 refer to the [Litmus Portal User Guide](https://docs.google.com/document/d/1fiN25BrZpvqg0UkBCuqQBE7Mx8BwDGC8ss2j2oXkZNA/edit#))
