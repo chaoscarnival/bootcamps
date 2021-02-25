@@ -3,7 +3,7 @@
 
 ### PreRequisites 
 
-**NOTE**: _Only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch. Not needed if you have a pre-packaged environment provided by litmus bootcamp organizers)_
+**NOTE**: _Only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch._
 
 - Install Kafka Cluster on Kubernetes (the demo uses [KUDO](https://kudo.dev/docs/runbooks/kafka/install.html#installing-the-operator) to install this)
 - Install the Litmus (Portal) Control Plane. You can use the step provided in the [Portal Documentation](https://github.com/litmuschaos/litmus/tree/master/litmus-portal#applying-k8s-manifest)
@@ -15,10 +15,9 @@
 
 **NOTE**
 
-- The ChaosCarnival bootcamp has an optional lab session for which a prepackaged cluster environment will be provided to interested users for the duration of the lab
-- The aforementioned prerequisites have already been setup for these clusters. 
-
-Reach out to [Udit Gaurav](udit.gaurav@mayadata.io) or [Shubham Chaudhary](shubham.chaudhary@mayadata.io) for on-demand lab sessions. 
+- _The ChaosCarnival bootcamp has an optional lab session for which a prepackaged cluster environment will be provided to interested users for the duration of the lab_
+- _The aforementioned prerequisites have already been setup for these clusters_
+- _Reach out to [Udit Gaurav](udit.gaurav@mayadata.io) or [Shubham Chaudhary](shubham.chaudhary@mayadata.io) for on-demand lab sessions_
 
 ## UseCase & Hypothesis 
 
