@@ -39,8 +39,8 @@ The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothe
 
 - In addition to the core constraint of an unbroken message stream, the experiment also factors in other important considerations around application behaviour. In this experiment, we also expect that despite chaos, there should be no : 
 
-  - OfflinePartitions (unavailable data-stores) throught the procedure 
-  - UnderReplicated Partitions (we use 3 replicas by default) before beginning the experiment (to avoid running chaos on a degaded setup) & once the chaos ceases/ends (acts as a check to see if all brokers are back to optimal state)
+  - **OfflinePartitions** (unavailable data-stores) throught the procedure 
+  - **UnderReplicatedPartitions** (we use 3 replicas by default) before beginning the experiment (to avoid running chaos on a degaded setup) & once the chaos ceases/ends (acts as a check to see if all brokers are back to optimal state)
 
   ![image](https://user-images.githubusercontent.com/21166217/109117980-b6ac9580-7768-11eb-94db-502ee4ff92ad.png)
   
@@ -83,7 +83,7 @@ refer to the [Litmus Portal User Guide](https://docs.google.com/document/d/1fiN2
   ![image](https://user-images.githubusercontent.com/21166217/109116687-f4a8ba00-7766-11eb-9149-26ef50066d83.png)
   
 
-- Verify the ChaosEngine & ChaosResult Statuses to know the experiment verdict post workflow completion. Sample results (including experiment pod logs & chaosresult dumps for successful & failure cases) can be found [here](./results)
+- Verify the ChaosEngine & ChaosResult Statuses to know the experiment verdict post workflow completion. Sample results (including experiment pod logs & chaosresult dumps for successful & failure cases) can be found [**here]**(./results)
 
 
 
