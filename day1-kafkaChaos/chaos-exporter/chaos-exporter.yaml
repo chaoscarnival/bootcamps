@@ -5,6 +5,7 @@ metadata:
   labels:
     app: chaos-monitor
   name: chaos-monitor
+  namespace: litmus
 spec:
   replicas: 1
   selector:
@@ -22,7 +23,7 @@ spec:
         env:
         - name: WATCH_NAMESPACE
           value: ''
-      serviceAccountName: litmus
+      serviceAccountName: litmus-cluster-scope
 ---
 apiVersion: v1
 kind: Service
@@ -30,6 +31,7 @@ metadata:
   labels:
     app: chaos-monitor
   name: chaos-monitor
+  namespace: litmus
 spec:
   ports:
   - port: 8080
