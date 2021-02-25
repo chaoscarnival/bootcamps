@@ -102,7 +102,7 @@ spec:
                             - name: KAFKA_PORT
                               value: "9092"
                             - name: KAFKA_CONSUMER_TIMEOUT
-                              value: "25000"
+                              value: "25000" #(ms) (75000 for success)
                             - name: KAFKA_INSTANCE_NAME
                               value: ""
                             - name: ZOOKEEPER_NAMESPACE
