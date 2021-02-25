@@ -83,7 +83,7 @@ refer to the [Litmus Portal User Guide](https://docs.google.com/document/d/1fiN2
   ![image](https://user-images.githubusercontent.com/21166217/109116687-f4a8ba00-7766-11eb-9149-26ef50066d83.png)
   
 
-- Verify the ChaosEngine & ChaosResult Statuses to know the experiment verdict post workflow completion. Sample results (including experiment pod logs & chaosresult dumps for successful & failure cases) can be found [**here]**(./results)
+- Verify the ChaosEngine & ChaosResult Statuses to know the experiment verdict post workflow completion. Sample results (including experiment pod logs & chaosresult dumps for successful & failure cases) can be found **[here](./results)**
 
 
 
