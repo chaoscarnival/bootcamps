@@ -3,7 +3,7 @@
 
 ### PreRequisites 
 
-**NOTE*: _Only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch. Not needed if you have a pre-packaged environment provided by litmus bootcamp organizers) _
+**NOTE**: _Only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch. Not needed if you have a pre-packaged environment provided by litmus bootcamp organizers) _
 
 - Install Kafka Cluster on Kubernetes (the demo uses [KUDO](https://kudo.dev/docs/runbooks/kafka/install.html#installing-the-operator) to install this)
 - Install the Litmus (Portal) Control Plane. You can use the step provided in the [Portal Documentation](https://github.com/litmuschaos/litmus/tree/master/litmus-portal#applying-k8s-manifest)
@@ -52,8 +52,8 @@ The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothe
 
 ## Demo Steps 
 
-(To learn more about using the portal please
-refer to the [Litmus Portal User Guide](https://docs.google.com/document/d/1fiN25BrZpvqg0UkBCuqQBE7Mx8BwDGC8ss2j2oXkZNA/edit#))
+**NOTE**: To learn more about using the portal please
+refer to the [Litmus Portal User Guide](https://docs.google.com/document/d/1fiN25BrZpvqg0UkBCuqQBE7Mx8BwDGC8ss2j2oXkZNA/edit#)
 
 - Login to the Litmus portal with the right credentials
 
