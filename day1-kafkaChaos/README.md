@@ -44,7 +44,8 @@ The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothe
   - UnderReplicated Partitions (we use 3 replicas by default) before beginning the experiment (to avoid running chaos on a degaded setup) & once the chaos ceases/ends (acts as a check to see if all brokers are back to optimal state)
 
   ![image](https://user-images.githubusercontent.com/21166217/109117980-b6ac9580-7768-11eb-94db-502ee4ff92ad.png)
-  courtesy: https://sematext.com/blog/kafka-metrics-to-monitor/#:~:text=Offline%20partitions%20represent%20data%20stores,to%20reassign%20partitions%20when%20needed.
+  
+  courtesy: [Key Kafka Metrics to Monitor](https://sematext.com/blog/kafka-metrics-to-monitor/#:~:text=Offline%20partitions%20represent%20data%20stores,to%20reassign%20partitions%20when%20needed.)
 
 - This is ensured by setting up the right litmus [Probes](https://docs.litmuschaos.io/docs/litmus-probe/)
 
