@@ -1,7 +1,9 @@
 # Kafka Broker Pod Failure Chaos Workflow 
 
 
-#### PreRequisites (only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch. Not needed if you have a pre-packaged environment provided by litmus bootcamp organizers) 
+### PreRequisites 
+
+**NOTE*: _Only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch. Not needed if you have a pre-packaged environment provided by litmus bootcamp organizers) _
 
 - Install Kafka Cluster on Kubernetes (the demo uses [KUDO](https://kudo.dev/docs/runbooks/kafka/install.html#installing-the-operator) to install this)
 - Install the Litmus (Portal) Control Plane. You can use the step provided in the [Portal Documentation](https://github.com/litmuschaos/litmus/tree/master/litmus-portal#applying-k8s-manifest)
