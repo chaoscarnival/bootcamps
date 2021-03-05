@@ -1,0 +1,155 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: kafka-chaos-
+  namespace: litmus
+spec:
+  arguments:
+    parameters:
+      - name: adminModeNamespace
+        value: "litmus"
+  entrypoint: kafka-chaos
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceAccountName: argo-chaos
+  templates:
+    - name: kafka-chaos
+      steps:
+        - - name: install-chaos-experiments
+            template: install-chaos-experiments
+        - - name: kafka-broker-pod-failure
+            template: kafka-broker-pod-failure
+        #- - name: revert-chaos
+        #    template: revert-chaos
+    - name: install-chaos-experiments
+      container:
+        args:
+          - kubectl apply -f
+            https://raw.githubusercontent.com/litmuschaos/chaos-charts/v1.13.x/charts/kafka/kafka-broker-pod-failure/experiment.yaml
+            -n {{workflow.parameters.adminModeNamespace}} | sleep 30
+        command:
+          - sh
+          - -c
+        image: lachlanevenson/k8s-kubectl
+    - name: kafka-broker-pod-failure
+      inputs:
+        artifacts:
+          - name: demo
+            path: /tmp/chaosengine-kafka-broker-pod-failure.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  name: kafka-broker-pod-failure
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                spec:
+                  annotationCheck: "false"
+                  engineState: active
+                  auxiliaryAppInfo: ""
+                  appinfo:
+                    appns: kafka
+                    applabel: app=kafka
+                    appkind: statefulset
+                  chaosServiceAccount: litmus-admin
+                  monitoring: true
+                  jobCleanUpPolicy: retain
+                  experiments:
+                    - name: kafka-broker-pod-failure
+                      spec:
+                        probe: 
+                        - name: kafka-under-replicated-partitions-check
+                          type: "promProbe"
+                          promProbe/inputs:
+                            endpoint: "http://ab2e8044cd61940dda32399ade297561-2130264042.us-west-2.elb.amazonaws.com:9090"
+                            query: "kafka_server_ReplicaManager_UnderReplicatedPartitions{endpoint='metrics',job='kafka-svc',namespace='kafka',pod='kafka-kafka-0',service='kafka-svc'}"
+                            comparator:
+                              criteria: "=="
+                              value: "0"
+                          mode: "Edge" 
+                          runProperties:
+                            probeTimeout: 10
+                            interval: 5
+                            retry: 2
+                        - name: kafka-offline-partitions-check
+                          type: "promProbe"
+                          promProbe/inputs:
+                            endpoint: "http://ab2e8044cd61940dda32399ade297561-2130264042.us-west-2.elb.amazonaws.com:9090"
+                            query: "kafka_controller_KafkaController_OfflinePartitionsCount{endpoint='metrics',job='kafka-svc',namespace='kafka',pod='kafka-kafka-0',service='kafka-svc'}"
+                            comparator:
+                              criteria: "=="
+                              value: "0"
+                          mode: "Continuous"
+                          runProperties: 
+                            probeTimeout: 10
+                            interval: 5
+                            retry: 2
+                            probePollingInterval: 5
+                        - name: kafka-message-stream-continuity-check
+                          type: "cmdProbe"
+                          cmdProbe/inputs:
+                            command: "kubectl get pod -n kafka -l app=kafka-liveness -o jsonpath='{.items[*].status.containerStatuses[?(@.name==\"kafka-consumer\")].ready}'"
+                            source: "inline"
+                            comparator: 
+                              type: "string"
+                              criteria: "equal"
+                              value: "true"
+                          mode: "OnChaos"
+                          runProperties:
+                            probeTimeout: 5
+                            interval: 5
+                            retry: 2
+                            probePollingInterval: 3
+                            initialDelaySeconds: 5 
+                        components:
+                          experimentImage: "litmuschaos/go-runner:1.13.1"
+                          statusCheckTimeouts:
+                            delay: 2
+                            timeout: 90
+                          env:
+                            - name: KAFKA_REPLICATION_FACTOR
+                              value: "3"
+                            - name: KAFKA_LABEL
+                              value: app=kafka
+                            - name: KAFKA_NAMESPACE
+                              value: kafka
+                            - name: KAFKA_SERVICE
+                              value: kafka-svc
+                            - name: KAFKA_PORT
+                              value: "9092"
+                            - name: KAFKA_CONSUMER_TIMEOUT
+                              value: "60000"
+                            - name: KAFKA_INSTANCE_NAME
+                              value: ""
+                            - name: ZOOKEEPER_NAMESPACE
+                              value: kafka
+                            - name: ZOOKEEPER_LABEL
+                              value: app=zookeeper
+                            - name: ZOOKEEPER_SERVICE
+                              value: zookeeper-instance-cs
+                            - name: ZOOKEEPER_PORT
+                              value: "2181"
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "10"
+                            - name: CHAOS_INTERVAL
+                              value: "10"
+                            - name: FORCE
+                              value: "false"
+                            - name: KAFKA_LIVENESS_STREAM
+                              value: enabled
+      container:
+        args:
+          - -file=/tmp/chaosengine-kafka-broker-pod-failure.yaml
+          - -saveName=/tmp/engine-name
+        image: litmuschaos/litmus-checker:latest
+    #- name: revert-chaos
+    #  container:
+    #    args:
+    #      - kubectl delete chaosengines --all -n
+    #        {{workflow.parameters.adminModeNamespace}}
+    #    command:
+    #      - sh
+    #      - -c
+    #    image: lachlanevenson/k8s-kubectl
+
