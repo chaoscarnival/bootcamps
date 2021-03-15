@@ -72,7 +72,7 @@ spec:
                           - "update"
                           - "delete"
                           - "deletecollection"
-                    image: "litmuschaos/go-runner:1.12.2"
+                    image: "litmuschaos/go-runner:1.13.2"
                     imagePullPolicy: Always
                     args:
                     - -c
@@ -84,7 +84,7 @@ spec:
                     - name: TARGET_CONTAINER
                       value: ''
                     - name: LIB_IMAGE
-                      value: 'litmuschaos/go-runner:1.12.2' 
+                      value: 'litmuschaos/go-runner:1.13.2' 
                     - name: NETWORK_INTERFACE
                       value: 'eth0'
                     - name: TC_IMAGE
@@ -143,6 +143,7 @@ spec:
                   chaosServiceAccount: litmus-admin
                   components:
                     runner:
+                      image: litmuschaos/chaos-runner:1.13.2
                       imagePullPolicy: Always
                   experiments:
                     - name: pod-network-loss
@@ -151,13 +152,12 @@ spec:
                         - name: "check-client-load"
                           type: "k8sProbe"
                           k8sProbe/inputs:
-                            command: 
-                              group: ""
-                              version: "v1"
-                              resource: "pods"
-                              namespace: "default"
-                              fieldSelector: "metadata.name=sysbench-client,status.phase=Running"
-                          operation: "present"
+                            group: ""
+                            version: "v1"
+                            resource: "pods"
+                            namespace: "default"
+                            fieldSelector: "metadata.name=sysbench-client,status.phase=Running"
+                            operation: "present"
                           mode: "Continuous"
                           runProperties:
                             probeTimeout: 2

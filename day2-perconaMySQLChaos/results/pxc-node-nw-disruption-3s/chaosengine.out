@@ -100,14 +100,13 @@ Spec:
           Comparator:
         httpProbe/inputs:
         k8sProbe/inputs:
-          Command:
-            Field Selector:  metadata.name=sysbench-client,status.phase=Running
-            Namespace:       default
-            Resource:        pods
-            Version:         v1
+          Field Selector:  metadata.name=sysbench-client,status.phase=Running
+          Namespace:       default
+          Operation:           present
+          Resource:        pods
+          Version:         v1
         Mode:                Continuous
         Name:                check-client-load
-        Operation:           present
         promProbe/inputs:
           Comparator:
         Run Properties:
