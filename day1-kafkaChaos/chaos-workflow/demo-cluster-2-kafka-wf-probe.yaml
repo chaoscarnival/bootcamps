@@ -20,8 +20,6 @@ spec:
             template: install-chaos-experiments
         - - name: kafka-broker-pod-failure
             template: kafka-broker-pod-failure
-        - - name: revert-chaos
-            template: revert-chaos
     - name: install-chaos-experiments
       container:
         args:
@@ -62,7 +60,7 @@ spec:
                         - name: kafka-under-replicated-partitions-check
                           type: "promProbe"
                           promProbe/inputs:
-                            endpoint: "http://a1306504a31e54873bfb16c80e8012ef-1039013793.us-west-2.elb.amazonaws.com:9090"
+                            endpoint: "http://a197b47fc4539467c9ddb29fbf06d4ad-216154995.us-west-2.elb.amazonaws.com:9090"
                             query: "kafka_server_ReplicaManager_UnderReplicatedPartitions{endpoint='metrics',job='kafka-svc',namespace='kafka',pod='kafka-kafka-0',service='kafka-svc'}"
                             comparator:
                               criteria: "=="
@@ -75,7 +73,7 @@ spec:
                         - name: kafka-offline-partitions-check
                           type: "promProbe"
                           promProbe/inputs:
-                            endpoint: "http://a1306504a31e54873bfb16c80e8012ef-1039013793.us-west-2.elb.amazonaws.com:9090"
+                            endpoint: "http://a197b47fc4539467c9ddb29fbf06d4ad-216154995.us-west-2.elb.amazonaws.com:9090"
                             query: "kafka_controller_KafkaController_OfflinePartitionsCount{endpoint='metrics',job='kafka-svc',namespace='kafka',pod='kafka-kafka-0',service='kafka-svc'}"
                             comparator:
                               criteria: "=="
@@ -143,13 +141,3 @@ spec:
           - -file=/tmp/chaosengine-kafka-broker-pod-failure.yaml
           - -saveName=/tmp/engine-name
         image: litmuschaos/litmus-checker:latest
-    - name: revert-chaos
-      container:
-       args:
-         - kubectl delete chaosengines --all -n
-           {{workflow.parameters.adminModeNamespace}}
-       command:
-         - sh
-         - -c
-       image: lachlanevenson/k8s-kubectl
-
