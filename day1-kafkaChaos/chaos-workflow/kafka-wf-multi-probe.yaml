@@ -103,7 +103,7 @@ spec:
                             probePollingInterval: 3
                             initialDelaySeconds: 5 
                         components:
-                          experimentImage: "litmuschaos/go-runner:1.13.1"
+                          experimentImage: "litmuschaos/go-runner:1.13.2"
                           statusCheckTimeouts:
                             delay: 2
                             timeout: 90

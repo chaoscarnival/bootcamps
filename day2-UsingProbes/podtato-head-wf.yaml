@@ -77,7 +77,10 @@ spec:
                           mode: "Continuous"
                           httpProbe/inputs:
                             url: "http://35.238.211.100:80"
-                            expectedResponseCode: "200"
+                            method:
+                              get:
+                                criteria: == 
+                                responseCode: "200"
                           runProperties:
                             probeTimeout: 10
                             interval: 5

@@ -59,6 +59,7 @@ spec:
                     - name: kafka-broker-pod-failure
                       spec:
                         components:
+                          experimentImage: "litmuschaos/go-runner:1.13.2"
                           statusCheckTimeouts:
                             delay: 2
                             timeout: 90
