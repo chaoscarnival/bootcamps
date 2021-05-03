@@ -114,7 +114,7 @@ spec:
                     labels:
                       name: pod-network-loss
       container:
-        image: lachlanevenson/k8s-kubectl
+        image: litmuschaos/k8s:latest
         command: [sh, -c]
         args: [ "kubectl apply -f /tmp/pod-network-loss.yaml -n {{workflow.parameters.adminModeNamespace}}",]
     
@@ -187,7 +187,7 @@ spec:
     
     - name: revert-chaos
       container:
-        image: lachlanevenson/k8s-kubectl
+        image: litmuschaos/k8s:latest
         command: [sh, -c]
         args: 
           [ 
