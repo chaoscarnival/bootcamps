@@ -15,7 +15,7 @@
       {
         "datasource": "Prometheus",
         "enable": true,
-        "expr": "litmuschaos_awaited_experiments{chaosresult_name=\"kafka-broker-pod-failure-kafka-broker-pod-failure\",chaosresult_namespace=\"litmus\",endpoint=\"tcp\",job=\"chaos-monitor\",namespace=\"litmus\",service=\"chaos-monitor\"}",
+        "expr": "litmuschaos_awaited_experiments{chaosresult_namespace=\"litmus\",endpoint=\"tcp\",job=\"chaos-monitor\",namespace=\"litmus\",service=\"chaos-monitor\"}",
         "hide": false,
         "iconColor": "#C4162A",
         "name": "LitmusChaos",

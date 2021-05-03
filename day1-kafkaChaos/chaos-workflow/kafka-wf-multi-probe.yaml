@@ -31,7 +31,7 @@ spec:
         command:
           - sh
           - -c
-        image: lachlanevenson/k8s-kubectl
+        image: litmuschaos/k8s:latest
     - name: kafka-broker-pod-failure
       inputs:
         artifacts:
@@ -151,5 +151,5 @@ spec:
     #    command:
     #      - sh
     #      - -c
-    #    image: lachlanevenson/k8s-kubectl
+    #    image: litmuschaos/k8s:latest
 
