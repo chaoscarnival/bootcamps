@@ -34,13 +34,13 @@ With (case-a), the node is expected to recover with the quorum & quorum members 
 ![image](https://user-images.githubusercontent.com/21166217/107640945-fd928980-6c98-11eb-9f21-841e8786a4b3.png)
 
 
-With (case-b), the node loses connectivity with resr of the clusters and is marked inactive, with the remaining nodes forming the quorum. The affected node *rejoins* the cluster 
+With (case-b), the node loses connectivity with rest of the clusters and is marked inactive, with the remaining nodes forming the quorum. The affected node *rejoins* the cluster 
 once the network connectivity resumes. Despite the disruption of traffic of 20s, the app (client) only notices a I/O stoppage for 5s (evs.suspect_timeout) post which the I/Os 
 continue to be served. 
 
 ![image](https://user-images.githubusercontent.com/21166217/107641065-261a8380-6c99-11eb-87dc-515e5a2495b8.png)
 
-Steady State Hypothesis: All PXC noeds are active & part of the quorum. Application (sysbench client) is always alive & running without breaking. 
+Steady State Hypothesis: All PXC nodes are active & part of the quorum. Application (sysbench client) is always alive & running without breaking. 
 
 ### Demo Playbook
 
