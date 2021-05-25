@@ -10,7 +10,7 @@ spec:
   jobLabel: name
   selector:
     matchLabels:
-      app: chaos-monitor
+      app: chaos-exporter
   namespaceSelector:
     matchNames:
     - litmus

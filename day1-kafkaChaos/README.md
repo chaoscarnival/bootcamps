@@ -1,13 +1,12 @@
 # Kafka Broker Pod Failure Chaos Workflow 
 
-
 ### PreRequisites 
 
 **NOTE**: _Only needed if you are doing this demo on your own cluster, i.e., setting up the demo env from scratch._
 
 - Install Kafka Cluster on Kubernetes (the demo uses [KUDO](https://kudo.dev/docs/runbooks/kafka/install.html#installing-the-operator) to install this)
-- Install the Litmus (Portal) Control Plane. You can use the step provided in the [Portal Documentation](https://github.com/litmuschaos/litmus/tree/master/litmus-portal#applying-k8s-manifest)
-- Setup the [Kafka](./kafka-exporter-helm) (via helm) & [LitmusChaos](./chaos-exporter) prometheus exporters
+- Install the Litmus (Portal) Control Plane. You can use the step provided in the [Portal Documentation](https://litmusdocs-beta.netlify.app/docs/introduction)
+- Setup the [Kafka](./kafka-exporter-helm) (via helm) & [LitmusChaos](https://github.com/litmuschaos/litmus/blob/master/monitoring/utils/metrics-exporters-with-service-monitors/litmus-metrics/chaos-exporter/chaos-exporter.yaml) (it is optional and comes with portal installation) prometheus exporters.
 - Setup the ServiceMonitors for [Kafka](./service-monitors/kafka-exporter-service-monitor.yaml) & [LitmusChaos](./service-monitors/chaos-exporter-service-monitor.yaml) prometheus exporters
 - Setup the Prometheus monitoring infra via the [Prometheus Operator](https://github.com/litmuschaos/litmus/tree/master/monitoring/utils/prometheus/prometheus-operator) with suitable [Configuration](https://github.com/litmuschaos/litmus/tree/master/monitoring/utils/prometheus/prometheus-configuration)
 - Apply the [Prometheus CR](./prometheus/prometheus.yaml) to scrape metrics from the Kafka & LitmusChaos exporters
