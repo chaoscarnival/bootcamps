@@ -52,7 +52,7 @@ The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothe
 
 ## Demo Steps 
 
-**NOTE**: To learn more about litmus portal setup and useage
+**NOTE**: To learn more about litmus portal setup and usage
 refer to the [Litmus Portal Docs](https://litmusdocs-beta.netlify.app/docs)
 
 - Login to the Litmus portal with the right credentials
@@ -88,7 +88,6 @@ refer to the [Litmus Portal Docs](https://litmusdocs-beta.netlify.app/docs)
   ![image](https://user-images.githubusercontent.com/21166217/109116687-f4a8ba00-7766-11eb-9149-26ef50066d83.png)
 
 - Verify the ChaosEngine & ChaosResult Statuses to know the experiment verdict post workflow completion. Sample results (including experiment pod logs & chaosresult dumps for successful & failure cases) can be found **[here](./results)**
-
 
 
 
