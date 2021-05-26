@@ -20,13 +20,13 @@ spec:
             template: install-chaos-experiments
         - - name: kafka-broker-pod-failure
             template: kafka-broker-pod-failure
-        - - name: revert-chaos
-            template: revert-chaos
+        # - - name: revert-chaos
+        #     template: revert-chaos
     - name: install-chaos-experiments
       container:
         args:
           - kubectl apply -f
-            https://github.com/litmuschaos/chaos-charts/raw/master/charts/kafka/kafka-broker-pod-failure/experiment.yaml
+            https://raw.githubusercontent.com/litmuschaos/chaos-charts/v1.13.x/charts/kafka/kafka-broker-pod-failure/experiment.yaml
             -n {{workflow.parameters.adminModeNamespace}} | sleep 30
         command:
           - sh
@@ -53,13 +53,11 @@ spec:
                     applabel: app=kafka
                     appkind: statefulset
                   chaosServiceAccount: litmus-admin
-                  monitoring: true
                   jobCleanUpPolicy: retain
                   experiments:
                     - name: kafka-broker-pod-failure
                       spec:
                         components:
-                          experimentImage: "litmuschaos/go-runner:1.13.2"
                           statusCheckTimeouts:
                             delay: 2
                             timeout: 90
@@ -99,14 +97,12 @@ spec:
           - -file=/tmp/chaosengine-kafka-broker-pod-failure.yaml
           - -saveName=/tmp/engine-name
         image: litmuschaos/litmus-checker:latest
-    - name: revert-chaos
-      container:
-        args:
-          - kubectl delete chaosengines --all -n
-            {{workflow.parameters.adminModeNamespace}}
-        command:
-          - sh
-          - -c
-        image: litmuschaos/k8s:latest
-
-
+    # - name: revert-chaos
+    #   container:
+    #     args:
+    #       - kubectl delete chaosengines --all -n
+    #         {{workflow.parameters.adminModeNamespace}}
+    #     command:
+    #       - sh
+    #       - -c
+    #     image: litmuschaos/k8s:latest
