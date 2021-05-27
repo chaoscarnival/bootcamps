@@ -11,6 +11,7 @@
 - Setup the Prometheus monitoring infra via the [Prometheus Operator](https://github.com/litmuschaos/litmus/tree/master/monitoring/utils/prometheus/prometheus-operator) with suitable [Configuration](https://github.com/litmuschaos/litmus/tree/master/monitoring/utils/prometheus/prometheus-configuration)
 - Apply the [Prometheus CR](./prometheus/prometheus.yaml) to scrape metrics from the Kafka & LitmusChaos exporters
 - (Optional) Setup [Grafana](https://github.com/litmuschaos/litmus/tree/master/monitoring/utils/grafana) to view the Kafka & LitmusChaos metrics. This [sample](./grafana/kafka-jmx.json) dashboard JSON can be used.
+- Update the prometheus endpoint at all places inside the [workflow](https://github.com/chaoscarnival/bootcamps/blob/main/day1-kafkaChaos/chaos-workflow/kafka-wf-probe.yaml#L65), if prometheus endpoint is different from the provided default endpoint.
 
 **NOTE**
 
@@ -20,13 +21,13 @@
 
 ## UseCase & Hypothesis 
 
-The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothesize & arrive upon the correct value for a deployment attribute (message timeout on kafka consumer) for a given cluster environment (3 kafka brokers using default/standard storage class), at the same time observing & validating some critical kafka metrics. More details on what the scenario entails is provided below: 
+The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothesize & arrive upon the correct value for a deployment attribute (message timeout on kafka consumer) for a given cluster environment (3 kafka brokers using default/standard storage class), at the same time observing & validating some critical kafka metrics. More details on what the scenario entails are provided below: 
 
 - The experiment begins by generating load on the Kafka cluster via a test producer/consumer pair, the consumer being configured with a _desired_ message timeout. The message stream in itself is very simple and just prints a timestamped string. It consists of a single topic with just a single partition, replicated across the 3 brokers. 
 
   ![image](https://user-images.githubusercontent.com/21166217/109115336-efe30680-7764-11eb-90c3-016890e923f7.png)
 
-- The partition leader amongst the kafka brokers is identified (via kafka client) and killed, triggering a failover resulting in a new partition leader. It is possible that the broker pod that is targeted for failure happens to be the "Controller Broker" (also called "Active Controller") that facilitates the failovers for partition leaders and speaks to zookeeper et al. In such a case, a new active controller is elected. All of which can contribute to data transfer being stalled for a while. The timne taken for this may depend upon the infrastructure. 
+- The partition leader amongst the kafka brokers is identified (via kafka client) and killed, triggering a failover resulting in a new partition leader. It is possible that the broker pod that is targeted for failure happens to be the "Controller Broker" (also called "Active Controller") that facilitates the failovers for partition leaders and speaks to zookeeper et al. In such a case, a new active controller is elected. All of which can contribute to data transfer being stalled for a while. The time taken for this may depend upon the infrastructure. 
 
   ![image](https://user-images.githubusercontent.com/21166217/109115795-9202ee80-7765-11eb-9f2d-67fbeafdc16f.png)
 
@@ -34,12 +35,12 @@ The demo involves using Litmus to inject chaos on a Kafka statefulset to hypothe
 
   ![image](https://user-images.githubusercontent.com/21166217/109116891-3d607300-7767-11eb-9046-29589336cbe2.png)
   
-  It is expected to play around with the timeout values (specified as an [ENV variable](https://github.com/chaoscarnival/bootcamps/blob/90d5e3e17194ed8effa1f290e52602c173a52c45/day1-kafkaChaos/chaos-workflow/kafka-wf-probe.yaml#L104) in the Chaos Workflow spec to arrive at an eventual value that succeeds. 
+  It is expected to play around with the timeout values (specified as an [ENV variable](https://github.com/chaoscarnival/bootcamps/blob/main/day1-kafkaChaos/chaos-workflow/kafka-wf-probe.yaml#L105) in the Chaos Workflow spec to arrive at an eventual value that succeeds. 
 
-- In addition to the core constraint of an unbroken message stream, the experiment also factors in other important considerations around application behaviour. In this experiment, we also expect that despite chaos, there should be no : 
+- In addition to the core constraint of an unbroken message stream, the experiment also factors in other important considerations around application behavior. In this experiment, we also expect that despite chaos, there should be no : 
 
-  - **OfflinePartitions** (unavailable data-stores) throught the procedure 
-  - **UnderReplicatedPartitions** (we use 3 replicas by default) before beginning the experiment (to avoid running chaos on a degaded setup) & once the chaos ceases/ends (acts as a check to see if all brokers are back to optimal state)
+  - **OfflinePartitions** (unavailable data-stores) throughout the procedure 
+  - **UnderReplicatedPartitions** (we use 3 replicas by default) before beginning the experiment (to avoid running chaos on a degraded setup) & once the chaos ceases/ends (acts as a check to see if all brokers are back to optimal state)
 
   ![image](https://user-images.githubusercontent.com/21166217/109117980-b6ac9580-7768-11eb-94db-502ee4ff92ad.png)
   
