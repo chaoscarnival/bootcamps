@@ -1,0 +1,162 @@
+W0921 10:36:13.630904       1 client_config.go:541] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
+time="2021-09-21T10:36:13Z" level=info msg="Experiment Name: pod-delete"
+time="2021-09-21T10:36:13Z" level=info msg="[PreReq]: Getting the ENV for the  experiment"
+time="2021-09-21T10:36:13Z" level=info msg="[PreReq]: Updating the chaos result of pod-delete experiment (SOT)"
+time="2021-09-21T10:36:15Z" level=info msg="The application information is as follows" Ramp Time=0 Namespace=postgres Label="application=spilo"
+time="2021-09-21T10:36:15Z" level=info msg="[Status]: Verify that the AUT (Application Under Test) is running (pre-chaos)"
+time="2021-09-21T10:36:15Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:36:15Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=postgres Pod=postgres-application-0
+time="2021-09-21T10:36:17Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:36:17Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:36:19Z" level=info msg="[Probe]: The cmd probe information is as follows" Source="kaleoum/postgres:c2" Run Properties="{20 10 2 5 0 false}" Mode=Continuous Phase=PreChaos Name=check Command="python3 test.py" Comparator="{int == 0}"
+time="2021-09-21T10:36:19Z" level=info msg="[Status]: Checking the status of the probe pod"
+time="2021-09-21T10:36:19Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:36:21Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:36:21Z" level=info msg="[Status]: The status of Pods are as follows" Pod=pod-delete-probe-ethqie Status=Running
+time="2021-09-21T10:36:23Z" level=info msg="[Probe]: The prometheus probe information is as follows" Mode=Continuous Phase=PreChaos Name=prom Query="sum(rate(pg_stat_database_tup_inserted{datname=~\\\"postgres\\\"}[90s]))" Endpoint="http://prometheus-k8s.monitoring.svc.cluster.local:9090" Comparator="{ >= 10}" Run Properties="{2 2 2 1 0 false}"
+time="2021-09-21T10:36:23Z" level=info msg="[Probe]: {Actual value: 42.832265858585856}, {Expected value: 10}, {Operator: >=}"
+time="2021-09-21T10:36:23Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:36:23Z" level=info msg="Target pods list: [postgres-application-0]"
+time="2021-09-21T10:36:23Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-0
+time="2021-09-21T10:36:23Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:36:33Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:36:33Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:36:49Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:36:49Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=postgres Pod=postgres-application-0
+time="2021-09-21T10:36:51Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:36:51Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:36:53Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:36:53Z" level=info msg="Target pods list: [postgres-application-0]"
+time="2021-09-21T10:36:53Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-0
+time="2021-09-21T10:36:53Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:37:03Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:37:03Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:37:03Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:37:03Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:37:05Z" level=info msg="[Status]: Checking whether application pods are in running state"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:37:19Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:37:21Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:37:21Z" level=info msg="Target pods list: [postgres-application-0]"
+time="2021-09-21T10:37:21Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-0
+time="2021-09-21T10:37:21Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:37:31Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:37:31Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:37:31Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:37:31Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:37:33Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:37:35Z" level=error msg="The check cmd probe has been Failed, err: Unable to get output of cmd command, err: command terminated with exit code 1"
+time="2021-09-21T10:37:42Z" level=error msg="The prom prom probe has been Failed, err: {actual value: 9.637111111111112} is not greater than or equal to {expected value: 10}"
+time="2021-09-21T10:37:44Z" level=error msg="The prom prom probe has been Failed, err: {actual value: 8.113155555555554} is not greater than or equal to {expected value: 10}"
+time="2021-09-21T10:37:46Z" level=error msg="The prom prom probe has been Failed, err: {actual value: 6.5808888888888895} is not greater than or equal to {expected value: 10}"
+time="2021-09-21T10:37:48Z" level=error msg="The prom prom probe has been Failed, err: {actual value: 6.5808888888888895} is not greater than or equal to {expected value: 10}"
+time="2021-09-21T10:37:52Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:37:54Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:37:54Z" level=info msg="Target pods list: [postgres-application-0]"
+time="2021-09-21T10:37:54Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-0
+time="2021-09-21T10:37:54Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+time="2021-09-21T10:38:04Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:38:04Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:38:04Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:38:04Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:38:06Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:38:20Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:38:22Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:38:22Z" level=info msg="Target pods list: [postgres-application-0]"
+time="2021-09-21T10:38:22Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-0
+time="2021-09-21T10:38:22Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+time="2021-09-21T10:38:32Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:38:32Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:38:32Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=exporter
+time="2021-09-21T10:38:32Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:38:34Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:38:56Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:38:58Z" level=info msg="[Completion]: pod-delete chaos is done"
+time="2021-09-21T10:38:58Z" level=info msg="[Confirmation]: pod-delete chaos has been injected successfully"
+time="2021-09-21T10:38:58Z" level=info msg="[Status]: Verify that the AUT (Application Under Test) is running (post-chaos)"
+time="2021-09-21T10:38:58Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:38:58Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:39:00Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:39:00Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:39:02Z" level=error msg="[Probe]: check probe has been Failed 😢 " ProbeType=cmdProbe ProbeInstance=PostChaos ProbeStatus=Failed ProbeName=check
+time="2021-09-21T10:39:04Z" level=error msg="[Probe]: prom probe has been Failed 😢 " ProbeInstance=PostChaos ProbeStatus=Failed ProbeName=prom ProbeType=promProbe
+time="2021-09-21T10:39:04Z" level=error msg="[Probe]: check probe has been Failed 😢 " ProbeType=cmdProbe ProbeInstance=PostChaos ProbeStatus=Failed ProbeName=check
+time="2021-09-21T10:39:06Z" level=error msg="[Probe]: prom probe has been Failed 😢 " ProbeType=promProbe ProbeInstance=PostChaos ProbeStatus=Failed ProbeName=prom
+time="2021-09-21T10:39:06Z" level=info msg="[The End]: Updating the chaos result of pod-delete experiment (EOT)"

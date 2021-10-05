@@ -1,0 +1,163 @@
+W0921 10:51:59.490531       1 client_config.go:541] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
+time="2021-09-21T10:51:59Z" level=info msg="Experiment Name: pod-delete"
+time="2021-09-21T10:51:59Z" level=info msg="[PreReq]: Getting the ENV for the  experiment"
+time="2021-09-21T10:51:59Z" level=info msg="[PreReq]: Updating the chaos result of pod-delete experiment (SOT)"
+time="2021-09-21T10:52:01Z" level=info msg="The application information is as follows" Namespace=postgres Label="application=spilo" Ramp Time=0
+time="2021-09-21T10:52:01Z" level=info msg="[Status]: Verify that the AUT (Application Under Test) is running (pre-chaos)"
+time="2021-09-21T10:52:01Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:52:01Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:01Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-1 Readiness=true
+time="2021-09-21T10:52:03Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:52:03Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:52:03Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-1 Status=Running
+time="2021-09-21T10:52:05Z" level=info msg="[Probe]: The cmd probe information is as follows" Comparator="{int == 0}" Source="kaleoum/postgres:c2" Run Properties="{40 10 3 15 0 false}" Mode=Continuous Phase=PreChaos Name=check Command="python3 test.py"
+time="2021-09-21T10:52:05Z" level=info msg="[Status]: Checking the status of the probe pod"
+time="2021-09-21T10:52:05Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:52:07Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:52:07Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=pod-delete-probe-yyavqh
+time="2021-09-21T10:52:09Z" level=info msg="[Probe]: The prometheus probe information is as follows" Name=prom Query="sum(rate(pg_stat_database_tup_inserted{datname=~\\\"postgres\\\"}[90s]))" Endpoint="http://prometheus-k8s.monitoring.svc.cluster.local:9090" Comparator="{ >= 10}" Run Properties="{2 2 2 1 0 false}" Mode=Continuous Phase=PreChaos
+time="2021-09-21T10:52:09Z" level=info msg="[Probe]: {Actual value: 79.89411764705883}, {Expected value: 10}, {Operator: >=}"
+time="2021-09-21T10:52:09Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:52:09Z" level=info msg="Target pods list: [postgres-application-1]"
+time="2021-09-21T10:52:09Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-1
+time="2021-09-21T10:52:09Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+time="2021-09-21T10:52:11Z" level=info msg="[Probe]: {Actual value: 0}, {Expected value: 0}, {Operator: ==}"
+time="2021-09-21T10:52:19Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:52:19Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:52:19Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:52:19Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:19Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-1 Readiness=true
+time="2021-09-21T10:52:19Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-1 Readiness=true container=postgres
+time="2021-09-21T10:52:21Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:52:21Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:52:23Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:52:25Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:52:27Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:52:29Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=postgres-application-0
+time="2021-09-21T10:52:29Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-1 Status=Running
+time="2021-09-21T10:52:31Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:52:31Z" level=info msg="Target pods list: [postgres-application-1]"
+time="2021-09-21T10:52:31Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-1
+time="2021-09-21T10:52:31Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+time="2021-09-21T10:52:41Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:52:41Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:52:41Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:52:41Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:43Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:52:43Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:45Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:45Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:52:47Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:47Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:49Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:49Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:52:51Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:51Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=postgres Pod=postgres-application-0
+time="2021-09-21T10:52:53Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=exporter
+time="2021-09-21T10:52:53Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:55Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:52:55Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:57Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:57Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=postgres Pod=postgres-application-0
+time="2021-09-21T10:52:59Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:52:59Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:01Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:01Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=postgres Pod=postgres-application-0
+time="2021-09-21T10:53:03Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:53:03Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:03Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-1
+time="2021-09-21T10:53:03Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-1 Readiness=true
+time="2021-09-21T10:53:05Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:53:05Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=postgres-application-0
+time="2021-09-21T10:53:05Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-1 Status=Running
+time="2021-09-21T10:53:07Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:53:07Z" level=info msg="Target pods list: [postgres-application-1]"
+time="2021-09-21T10:53:07Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-1
+time="2021-09-21T10:53:07Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+time="2021-09-21T10:53:17Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:53:17Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:53:17Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:17Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:53:19Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:19Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:21Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:21Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:23Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:23Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:53:25Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:53:25Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:53:27Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:28Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=postgres Pod=postgres-application-0
+time="2021-09-21T10:53:30Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:30Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=postgres Pod=postgres-application-0
+time="2021-09-21T10:53:30Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-1
+time="2021-09-21T10:53:30Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=postgres Pod=postgres-application-1
+time="2021-09-21T10:53:32Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:53:32Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=postgres-application-0
+time="2021-09-21T10:53:32Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=postgres-application-1
+time="2021-09-21T10:53:34Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:53:34Z" level=info msg="Target pods list: [postgres-application-1]"
+time="2021-09-21T10:53:34Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-1
+time="2021-09-21T10:53:34Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+time="2021-09-21T10:53:44Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:53:44Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:53:44Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:53:44Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:53:46Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:46Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:48Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:48Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:53:50Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:53:50Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:53:52Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=exporter
+time="2021-09-21T10:53:52Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:53:54Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=exporter
+time="2021-09-21T10:53:54Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:56Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:53:56Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:53:58Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=exporter
+time="2021-09-21T10:53:58Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:54:00Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=exporter
+time="2021-09-21T10:54:00Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:54:02Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-0
+time="2021-09-21T10:54:02Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:54:04Z" level=info msg="[Status]: The Container status are as follows" container=exporter Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:54:04Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:54:04Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-1 Readiness=true container=exporter
+time="2021-09-21T10:54:04Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-1 Readiness=true
+time="2021-09-21T10:54:06Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:54:06Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:54:06Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=postgres-application-1
+time="2021-09-21T10:54:08Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:54:08Z" level=info msg="Target pods list: [postgres-application-1]"
+time="2021-09-21T10:54:08Z" level=info msg="[Info]: Killing the following pods" PodName=postgres-application-1
+time="2021-09-21T10:54:08Z" level=info msg="[Wait]: Wait for the chaos interval 10s"
+time="2021-09-21T10:54:18Z" level=info msg="[Status]: Verification for the recreation of application pod"
+time="2021-09-21T10:54:18Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:54:18Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=exporter
+time="2021-09-21T10:54:18Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:54:18Z" level=info msg="[Status]: The Container status are as follows" Readiness=true container=exporter Pod=postgres-application-1
+time="2021-09-21T10:54:18Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-1 Readiness=true
+time="2021-09-21T10:54:20Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:54:20Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:54:22Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:54:24Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=postgres-application-0
+time="2021-09-21T10:54:26Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:54:28Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:54:30Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:54:32Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:54:32Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-1 Status=Running
+time="2021-09-21T10:54:34Z" level=info msg="[Completion]: pod-delete chaos is done"
+time="2021-09-21T10:54:34Z" level=info msg="[Confirmation]: pod-delete chaos has been injected successfully"
+time="2021-09-21T10:54:34Z" level=info msg="[Status]: Verify that the AUT (Application Under Test) is running (post-chaos)"
+time="2021-09-21T10:54:34Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:54:34Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:54:34Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-1 Readiness=true container=postgres
+time="2021-09-21T10:54:36Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:54:36Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-0 Status=Running
+time="2021-09-21T10:54:36Z" level=info msg="[Status]: The status of Pods are as follows" Pod=postgres-application-1 Status=Running
+time="2021-09-21T10:54:38Z" level=info msg="[Probe]: check probe has been Passed 😄 " ProbeInstance=PostChaos ProbeStatus=Passed ProbeName=check ProbeType=cmdProbe
+time="2021-09-21T10:54:40Z" level=info msg="[Probe]: prom probe has been Passed 😄 " ProbeType=promProbe ProbeInstance=PostChaos ProbeStatus=Passed ProbeName=prom
+time="2021-09-21T10:54:40Z" level=info msg="[Probe]: check probe has been Passed 😄 " ProbeInstance=PostChaos ProbeStatus=Passed ProbeName=check ProbeType=cmdProbe
+time="2021-09-21T10:54:42Z" level=info msg="[Probe]: prom probe has been Passed 😄 " ProbeType=promProbe ProbeInstance=PostChaos ProbeStatus=Passed ProbeName=prom
+time="2021-09-21T10:54:42Z" level=info msg="[The End]: Updating the chaos result of pod-delete experiment (EOT)"
