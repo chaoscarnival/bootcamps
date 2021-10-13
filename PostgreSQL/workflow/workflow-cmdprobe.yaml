@@ -37,7 +37,7 @@ spec:
                     name: pod-network-loss
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: 2.1.0
+                    app.kubernetes.io/version: 2.1.1
                 spec:
                   definition:
                     scope: Namespaced
@@ -73,7 +73,7 @@ spec:
                           - update
                           - delete
                           - deletecollection
-                    image: litmuschaos/go-runner:2.1.0
+                    image: litmuschaos/go-runner:2.1.1
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -84,7 +84,7 @@ spec:
                       - name: TARGET_CONTAINER
                         value: ""
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:2.1.0
+                        value: litmuschaos/go-runner:2.1.1
                       - name: NETWORK_INTERFACE
                         value: eth0
                       - name: TC_IMAGE
@@ -115,7 +115,7 @@ spec:
                       name: pod-network-loss
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
-                      app.kubernetes.io/version: 2.1.0
+                      app.kubernetes.io/version: 2.1.1
           - name: pod-delete
             path: /tmp/pod-delete.yaml
             raw:
@@ -133,7 +133,7 @@ spec:
                     name: pod-delete
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: 2.1.0
+                    app.kubernetes.io/version: 2.1.1
                 spec:
                   definition:
                     scope: Namespaced
@@ -170,7 +170,7 @@ spec:
                           - update
                           - delete
                           - deletecollection
-                    image: litmuschaos/go-runner:2.1.0
+                    image: litmuschaos/go-runner:2.1.1
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -198,7 +198,7 @@ spec:
                       name: pod-delete
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
-                      app.kubernetes.io/version: 2.1.0
+                      app.kubernetes.io/version: 2.1.1
       container:
         name: ""
         image: litmuschaos/k8s:latest
