@@ -53,8 +53,8 @@
 - Experiment Pod-Delete: It deletes the master pod due to which the database remains in an inaccessible state until the master pod restarts. It blocks read/write operations when the master pod terminates. 
 - We can visualize the network loss with the first red dotted area and pod-delete by the second red dotted area. 
 
-![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/weak/graphs/weak-resilient-insertion-rate-dashboard.png)
-![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/weak/graphs/weak-insertion-rate-and-deletion-rate-dashboard.png)
+![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/single-master-node/graphs/weak-resilient-insertion-rate-dashboard.png)
+![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/single-master-node/graphs/weak-insertion-rate-and-deletion-rate-dashboard.png)
 
 - Experiment logs and chaosresult has been added [here](https://github.com/oumkale/bootcamps/tree/postgres/PostgreSQL/results/weak).
 
@@ -64,8 +64,8 @@
 - Experiment Network-Loss: Due to network loss the master pod is inaccessible after some downtime the slave becomes master and the master becomes a slave. Due to database accessible Read-Write requests get succeed. Postgres operator carries out the rolling update, it re-spawns pods of each managed StatefulSet one by one with the master-slave.
 - Experiment Pod-Delete: Once the master pod is terminated the slave will become master immediately and keep available. Due to database accessibility, Read-Write requests get succeed.
 
-![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/resilient/graphs/resilient-insertion-rate-dashboard.png)
-![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/resilient/graphs/resilient-insertion-rate-and-deletion-rate-dashboard.png)
+![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/two-node-master-slave/graphs/resilient-insertion-rate-dashboard.png)
+![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/two-node-master-slave/graphs/resilient-insertion-rate-and-deletion-rate-dashboard.png)
 
 - Experiment logs and chaosresult has been added [here](https://github.com/oumkale/bootcamps/tree/postgres/PostgreSQL/results/resilient).
 
