@@ -332,7 +332,7 @@ spec:
                             - name: PODS_AFFECTED_PERC
                               value: ""
                             - name: TARGET_PODS
-                              value: postgres-application-0
+                              value: postgres-application-1
                             - name: TARGET_CONTAINER
                               value: postgres
                         probe:

@@ -53,10 +53,10 @@
 - Experiment Pod-Delete: It deletes the master pod due to which the database remains in an inaccessible state until the master pod restarts. It blocks read/write operations when the master pod terminates. 
 - We can visualize the network loss with the first red dotted area and pod-delete by the second red dotted area. 
 
-![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/images/weak-resilient-insertion-rate-dashboard.png)
-![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/images/weak-insertion-rate-and-deletion-rate-dashboard.png)
+![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/weak/graphs/weak-resilient-insertion-rate-dashboard.png)
+![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/weak/graphs/weak-insertion-rate-and-deletion-rate-dashboard.png)
 
-- Experiment logs and chaosresult has been added [here](https://github.com/oumkale/bootcamps/tree/postgres/PostgreSQL/result/weak).
+- Experiment logs and chaosresult has been added [here](https://github.com/oumkale/bootcamps/tree/postgres/PostgreSQL/results/weak).
 
 ### Two node(master-slave) Scenario:
 
@@ -64,10 +64,10 @@
 - Experiment Network-Loss: Due to network loss the master pod is inaccessible after some downtime the slave becomes master and the master becomes a slave. Due to database accessible Read-Write requests get succeed. Postgres operator carries out the rolling update, it re-spawns pods of each managed StatefulSet one by one with the master-slave.
 - Experiment Pod-Delete: Once the master pod is terminated the slave will become master immediately and keep available. Due to database accessibility, Read-Write requests get succeed.
 
-![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/images/resilient-insertion-rate-dashboard.png)
-![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/images/resilient-insertion-rate-and-deletion-rate-dashboard.png)
+![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/resilient/graphs/resilient-insertion-rate-dashboard.png)
+![image](https://github.com/oumkale/bootcamps/blob/postgres/PostgreSQL/results/resilient/graphs/resilient-insertion-rate-and-deletion-rate-dashboard.png)
 
-- Experiment logs and chaosresult has been added [here](https://github.com/oumkale/bootcamps/tree/postgres/PostgreSQL/result/resilient).
+- Experiment logs and chaosresult has been added [here](https://github.com/oumkale/bootcamps/tree/postgres/PostgreSQL/results/resilient).
 
 **Note** : In a two-node(master-slave) cluster during network loss, there is downtime from Postgres. This is because it takes a certain amount of time to check accessibility with the current master role and once it achieves the max time limit, Immediately transfer the master role to the slave during the chaos. In master, pod delete there is no other way than allowing the master role to slave since the master is deleted.
 
