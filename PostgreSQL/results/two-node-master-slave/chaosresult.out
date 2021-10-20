@@ -1,0 +1,101 @@
+Name:         pod-deletew6pnt-pod-delete
+Namespace:    litmus
+Labels:       app.kubernetes.io/component=experiment-job
+              app.kubernetes.io/part-of=litmus
+              app.kubernetes.io/version=2.0.0
+              chaosUID=e9a3e825-9275-4c38-bc84-f6599f642398
+              controller-uid=909eba8c-05e0-4f56-977d-631ea87874f0
+              job-name=pod-delete-siiq5s
+              name=pod-delete
+Annotations:  <none>
+API Version:  litmuschaos.io/v1alpha1
+Kind:         ChaosResult
+Metadata:
+  Creation Timestamp:  2021-09-21T10:52:01Z
+  Generation:          2
+  Resource Version:    28229
+  Self Link:           /apis/litmuschaos.io/v1alpha1/namespaces/litmus/chaosresults/pod-deletew6pnt-pod-delete
+  UID:                 e2e4bfe0-2874-4d02-8bf2-3773c0e8faf5
+Spec:
+  Engine:      pod-deletew6pnt
+  Experiment:  pod-delete
+Status:
+  Experiment Status:
+    Fail Step:                 N/A
+    Phase:                     Completed
+    Probe Success Percentage:  100
+    Verdict:                   Pass
+  History:
+    Failed Runs:   0
+    Passed Runs:   1
+    Stopped Runs:  0
+    Targets:
+      Chaos Status:  targeted
+      Kind:          statefulset
+      Name:          postgres-application
+  Probe Status:
+    Name:  check
+    Status:
+      Continuous:  Passed 👍 
+    Type:          cmdProbe
+    Name:          prom
+    Status:
+      Continuous:  Passed 👍 
+    Type:          promProbe
+Events:
+  Type    Reason   Age    From                     Message
+  ----    ------   ----   ----                     -------
+  Normal  Awaited  3m57s  pod-delete-siiq5s-xd5vz  experiment: pod-delete, Result: Awaited
+  Normal  Pass     72s    pod-delete-siiq5s-xd5vz  experiment: pod-delete, Result: Pass
+
+---
+
+Name:         pod-network-losslqt2q-pod-network-loss
+Namespace:    litmus
+Labels:       app.kubernetes.io/component=experiment-job
+              app.kubernetes.io/part-of=litmus
+              app.kubernetes.io/version=2.0.0
+              chaosUID=4700d912-62a9-4bff-a5e3-426765101194
+              controller-uid=6f46b6d6-c77f-40f6-a1ea-c8d7946be0ab
+              job-name=pod-network-loss-zx6e1c
+              name=pod-network-loss
+Annotations:  <none>
+API Version:  litmuschaos.io/v1alpha1
+Kind:         ChaosResult
+Metadata:
+  Creation Timestamp:  2021-09-21T10:12:29Z
+  Generation:          2
+  Resource Version:    19874
+  Self Link:           /apis/litmuschaos.io/v1alpha1/namespaces/litmus/chaosresults/pod-network-losslqt2q-pod-network-loss
+  UID:                 9a22f7f4-6e77-46e0-be1b-70a80c374d02
+Spec:
+  Engine:      pod-network-losslqt2q
+  Experiment:  pod-network-loss
+Status:
+  Experiment Status:
+    Fail Step:                 N/A
+    Phase:                     Completed
+    Probe Success Percentage:  100
+    Verdict:                   Pass
+  History:
+    Failed Runs:   0
+    Passed Runs:   1
+    Stopped Runs:  0
+    Targets:
+      Chaos Status:  reverted
+      Kind:          pod
+      Name:          postgres-application-0
+  Probe Status:
+    Name:  check
+    Status:
+      Continuous:  Passed 👍 
+    Type:          cmdProbe
+    Name:          prom
+    Status:
+      Continuous:  Passed 👍 
+    Type:          promProbe
+Events:
+  Type    Reason   Age    From                           Message
+  ----    ------   ----   ----                           -------
+  Normal  Awaited  7m47s  pod-network-loss-zx6e1c-ljmft  experiment: pod-network-loss, Result: Awaited
+  Normal  Pass     4m49s  pod-network-loss-zx6e1c-ljmft  experiment: pod-network-loss, Result: Pass

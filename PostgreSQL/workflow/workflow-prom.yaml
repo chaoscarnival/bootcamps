@@ -1,0 +1,410 @@
+kind: Workflow
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  generateName: argowf-chaos-postgres-resiliency-  
+  namespace: litmus
+  labels:
+    subject: "pg_postgresql"
+spec:
+  templates:
+    - name: custom-chaos
+      steps:
+        - - name: install-chaos-experiments
+            template: install-chaos-experiments
+        - - name: pod-network-loss
+            template: pod-network-loss
+        - - name: pod-delete
+            template: pod-delete
+        - - name: revert-chaos
+            template: revert-chaos
+    - name: install-chaos-experiments
+      inputs:
+        artifacts:
+          - name: pod-network-loss
+            path: /tmp/pod-network-loss.yaml
+            raw:
+              data: >
+                apiVersion: litmuschaos.io/v1alpha1
+
+                description:
+                  message: |
+                    Injects network packet loss on pods belonging to an app deployment
+                kind: ChaosExperiment
+
+                metadata:
+                  name: pod-network-loss
+                  labels:
+                    name: pod-network-loss
+                    app.kubernetes.io/part-of: litmus
+                    app.kubernetes.io/component: chaosexperiment
+                    app.kubernetes.io/version: 2.1.1
+                spec:
+                  definition:
+                    scope: Namespaced
+                    permissions:
+                      - apiGroups:
+                          - ""
+                          - batch
+                          - apps
+                          - apps.openshift.io
+                          - argoproj.io
+                          - litmuschaos.io
+                        resources:
+                          - jobs
+                          - pods
+                          - pods/log
+                          - replicationcontrollers
+                          - deployments
+                          - statefulsets
+                          - daemonsets
+                          - replicasets
+                          - deploymentconfigs
+                          - rollouts
+                          - pods/exec
+                          - events
+                          - chaosengines
+                          - chaosexperiments
+                          - chaosresults
+                        verbs:
+                          - get
+                          - list
+                          - patch
+                          - create
+                          - update
+                          - delete
+                          - deletecollection
+                    image: litmuschaos/go-runner:2.1.1
+                    imagePullPolicy: Always
+                    args:
+                      - -c
+                      - ./experiments -name pod-network-loss
+                    command:
+                      - /bin/bash
+                    env:
+                      - name: TARGET_CONTAINER
+                        value: ""
+                      - name: LIB_IMAGE
+                        value: litmuschaos/go-runner:2.1.1
+                      - name: NETWORK_INTERFACE
+                        value: eth0
+                      - name: TC_IMAGE
+                        value: gaiadocker/iproute2
+                      - name: NETWORK_PACKET_LOSS_PERCENTAGE
+                        value: "100"
+                      - name: TOTAL_CHAOS_DURATION
+                        value: "60"
+                      - name: RAMP_TIME
+                        value: ""
+                      - name: LIB
+                        value: litmus
+                      - name: PODS_AFFECTED_PERC
+                        value: ""
+                      - name: TARGET_PODS
+                        value: ""
+                      - name: CONTAINER_RUNTIME
+                        value: docker
+                      - name: DESTINATION_IPS
+                        value: ""
+                      - name: DESTINATION_HOSTS
+                        value: ""
+                      - name: SOCKET_PATH
+                        value: /var/run/docker.sock
+                      - name: SEQUENCE
+                        value: parallel
+                    labels:
+                      name: pod-network-loss
+                      app.kubernetes.io/part-of: litmus
+                      app.kubernetes.io/component: experiment-job
+                      app.kubernetes.io/version: 2.1.1
+          - name: pod-delete
+            path: /tmp/pod-delete.yaml
+            raw:
+              data: >
+                apiVersion: litmuschaos.io/v1alpha1
+
+                description:
+                  message: |
+                    Deletes a pod belonging to a deployment/statefulset/daemonset
+                kind: ChaosExperiment
+
+                metadata:
+                  name: pod-delete
+                  labels:
+                    name: pod-delete
+                    app.kubernetes.io/part-of: litmus
+                    app.kubernetes.io/component: chaosexperiment
+                    app.kubernetes.io/version: 2.1.1
+                spec:
+                  definition:
+                    scope: Namespaced
+                    permissions:
+                      - apiGroups:
+                          - ""
+                          - apps
+                          - apps.openshift.io
+                          - argoproj.io
+                          - batch
+                          - litmuschaos.io
+                        resources:
+                          - deployments
+                          - jobs
+                          - pods
+                          - pods/log
+                          - replicationcontrollers
+                          - deployments
+                          - statefulsets
+                          - daemonsets
+                          - replicasets
+                          - deploymentconfigs
+                          - rollouts
+                          - pods/exec
+                          - events
+                          - chaosengines
+                          - chaosexperiments
+                          - chaosresults
+                        verbs:
+                          - create
+                          - list
+                          - get
+                          - patch
+                          - update
+                          - delete
+                          - deletecollection
+                    image: litmuschaos/go-runner:2.1.1
+                    imagePullPolicy: Always
+                    args:
+                      - -c
+                      - ./experiments -name pod-delete
+                    command:
+                      - /bin/bash
+                    env:
+                      - name: TOTAL_CHAOS_DURATION
+                        value: "15"
+                      - name: RAMP_TIME
+                        value: ""
+                      - name: FORCE
+                        value: "true"
+                      - name: CHAOS_INTERVAL
+                        value: "5"
+                      - name: PODS_AFFECTED_PERC
+                        value: ""
+                      - name: LIB
+                        value: litmus
+                      - name: TARGET_PODS
+                        value: ""
+                      - name: SEQUENCE
+                        value: parallel
+                    labels:
+                      name: pod-delete
+                      app.kubernetes.io/part-of: litmus
+                      app.kubernetes.io/component: experiment-job
+                      app.kubernetes.io/version: 2.1.1
+      container:
+        name: ""
+        image: litmuschaos/k8s:latest
+        command:
+          - sh
+          - -c
+        args:
+          - kubectl apply -f /tmp/pod-network-loss.yaml -n
+            {{workflow.parameters.adminModeNamespace}} | kubectl apply -f
+            /tmp/pod-delete.yaml -n {{workflow.parameters.adminModeNamespace}}
+            |  sleep 30
+    
+    - name: pod-network-loss
+      inputs:
+        artifacts:
+          - name: pod-network-loss
+            path: /tmp/chaosengine-pod-network-loss.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: pod-network-loss
+                  labels:
+                    context: "{{workflow.parameters.appNamespace}}_postgres"
+                spec:
+                  jobCleanUpPolicy: retain
+                  engineState: active
+                  appinfo:
+                    appns: postgres
+                    applabel: application=spilo
+                    appkind: statefulset
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: pod-network-loss
+                      spec:
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "120"
+                            - name: NETWORK_PACKET_LOSS_PERCENTAGE
+                              value: "100"
+                            - name: CONTAINER_RUNTIME
+                              value: docker
+                            - name: SOCKET_PATH
+                              value: /var/run/docker.sock
+                            - name: PODS_AFFECTED_PERC
+                              value: ""
+                            - name: TARGET_PODS
+                              value: postgres-application-0
+                            - name: TARGET_CONTAINER
+                              value: postgres
+                        probe:
+                          - name: check
+                            type: cmdProbe
+                            mode: Continuous
+                            runProperties:
+                              probeTimeout: 20
+                              retry: 4
+                              interval: 5
+                              probePollingInterval: 5
+                              stopOnFailure: false
+                            cmdProbe/inputs:
+                              command: python3 loadGen.py
+                              source: 
+                                image: litmuschaos/litmus-pg-load:latest
+                              comparator:
+                                type: int
+                                criteria: ==
+                                value: "0"
+                          - name: prom
+                            type: promProbe
+                            mode: Continuous
+                            runProperties:
+                              probeTimeout: 4
+                              retry: 2
+                              interval: 2
+                              probePollingInterval: 2
+                              stopOnFailure: false
+                            promProbe/inputs:
+                              endpoint: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+                              query: (sum(rate(pg_stat_database_tup_inserted{datname=~\"postgres\"}[90s]))*100)
+                              comparator:
+                                type: int
+                                criteria: ">="
+                                value: "1000"
+                  annotationCheck: "false"
+      metadata:
+        labels:
+          weight: "10"
+      container:
+        name: ""
+        image: litmuschaos/litmus-checker:latest
+        args:
+          - -file=/tmp/chaosengine-pod-network-loss.yaml
+          - -saveName=/tmp/engine-name
+    
+    - name: pod-delete
+      inputs:
+        artifacts:
+          - name: pod-delete
+            path: /tmp/chaosengine-pod-delete.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: pod-delete
+                  labels:
+                    context: "{{workflow.parameters.appNamespace}}_postgres"
+                spec:
+                  appinfo:
+                    appns: postgres
+                    applabel: application=spilo
+                    appkind: statefulset
+                  jobCleanUpPolicy: retain
+                  engineState: active
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: pod-delete
+                      spec:
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "120"
+                            - name: CHAOS_INTERVAL
+                              value: "10"
+                            - name: FORCE
+                              value: "false"
+                            - name: PODS_AFFECTED_PERC
+                              value: ""
+                            - name: TARGET_PODS
+                              value: postgres-application-1
+                            - name: TARGET_CONTAINER
+                              value: postgres
+                        probe:
+                          - name: check
+                            type: cmdProbe
+                            mode: Continuous
+                            runProperties:
+                              probeTimeout: 20
+                              retry: 4
+                              interval: 5
+                              probePollingInterval: 5
+                              stopOnFailure: false
+                            cmdProbe/inputs:
+                              command: python3 loadGen.py
+                              source: 
+                                image: litmuschaos/litmus-pg-load:latest
+                              comparator:
+                                type: int
+                                criteria: ==
+                                value: "0"
+                          - name: prom
+                            type: promProbe
+                            mode: Continuous
+                            runProperties:
+                              probeTimeout: 4
+                              retry: 2
+                              interval: 2
+                              probePollingInterval: 2
+                              stopOnFailure: false
+                            promProbe/inputs:
+                              endpoint: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+                              query: (sum(rate(pg_stat_database_tup_inserted{datname=~\"postgres\"}[90s]))*100)
+                              comparator:
+                                type: int
+                                criteria: ">="
+                                value: "1000"
+                  annotationCheck: "false"
+      metadata:
+        labels:
+          weight: "10"
+      container:
+        name: ""
+        image: litmuschaos/litmus-checker:latest
+        args:
+          - -file=/tmp/chaosengine-pod-delete.yaml
+          - -saveName=/tmp/engine-name
+    
+    - name: revert-chaos
+      container:
+        name: ""
+        image: litmuschaos/k8s:latest
+        command:
+          - sh
+          - -c
+        args:
+          - "kubectl delete chaosengine -l 'instance_id in
+            (8feb4170-b055-4066-ae34-a2463c46c957,
+            d12365a0-dd6e-4ecd-b849-e2896569869f, )' -n
+            {{workflow.parameters.adminModeNamespace}} "
+
+  entrypoint: custom-chaos
+  arguments:
+    parameters:
+      - name: adminModeNamespace
+        value: litmus
+  serviceAccountName: argo-chaos
+  podGC:
+    strategy: OnWorkflowCompletion
+  securityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+status:
+  ? startedAt
+  ? finishedAt

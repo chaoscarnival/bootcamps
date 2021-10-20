@@ -1,0 +1,433 @@
+W0921 10:33:07.080717       1 client_config.go:541] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
+time="2021-09-21T10:33:07Z" level=info msg="Experiment Name: pod-network-loss"
+time="2021-09-21T10:33:07Z" level=info msg="[PreReq]: Getting the ENV for the  experiment"
+time="2021-09-21T10:33:07Z" level=info msg="[PreReq]: Updating the chaos result of pod-network-loss experiment (SOT)"
+time="2021-09-21T10:33:09Z" level=info msg="The application information is as follows\n" Ramp Time=0 Namespace=postgres Label="application=spilo"
+time="2021-09-21T10:33:09Z" level=info msg="[Status]: Verify that the AUT (Application Under Test) is running (pre-chaos)"
+time="2021-09-21T10:33:09Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:33:09Z" level=info msg="[Status]: The Container status are as follows" Pod=postgres-application-0 Readiness=true container=postgres
+time="2021-09-21T10:33:11Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:33:11Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=postgres-application-0
+time="2021-09-21T10:33:13Z" level=info msg="[Probe]: The cmd probe information is as follows" Run Properties="{20 2 3 5 0 false}" Mode=Continuous Phase=PreChaos Name=check Command="python3 test.py" Comparator="{int == 0}" Source="kaleoum/postgres:c2"
+time="2021-09-21T10:33:13Z" level=info msg="[Status]: Checking the status of the probe pod"
+time="2021-09-21T10:33:13Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:33:15Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:33:17Z" level=info msg="[Status]: The status of Pods are as follows" Pod=pod-network-loss-probe-rgvyaq Status=Running
+time="2021-09-21T10:33:19Z" level=info msg="[Probe]: The prometheus probe information is as follows" Name=prom Query="sum(rate(pg_stat_database_tup_inserted{datname=~\\\"postgres\\\"}[90s]))" Endpoint="http://prometheus-k8s.monitoring.svc.cluster.local:9090" Comparator="{ >= 10}" Run Properties="{2 2 2 1 0 false}" Mode=Continuous Phase=PreChaos
+time="2021-09-21T10:33:19Z" level=info msg="[Probe]: {Actual value: 66.41176470588235}, {Expected value: 10}, {Operator: >=}"
+time="2021-09-21T10:33:19Z" level=info msg="[Chaos]:Number of pods targeted: 1"
+time="2021-09-21T10:33:19Z" level=info msg="Target pods list for chaos, [postgres-application-0]"
+time="2021-09-21T10:33:19Z" level=info msg="[Info]: Details of application under chaos injection" PodName=postgres-application-0 NodeName=ip-192-168-58-70.us-west-2.compute.internal ContainerName=postgres
+time="2021-09-21T10:33:19Z" level=info msg="[Status]: Checking the status of the helper pods"
+time="2021-09-21T10:33:20Z" level=info msg="[Probe]: {Actual value: 0}, {Expected value: 0}, {Operator: ==}"
+time="2021-09-21T10:33:23Z" level=info msg="pod-network-loss-helper-lymesw helper pod is in Running state"
+time="2021-09-21T10:33:25Z" level=info msg="[Wait]: waiting till the completion of the helper pod"
+time="2021-09-21T10:33:25Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:26Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:27Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:28Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:29Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:30Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:31Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:32Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:33Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:34Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:35Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:36Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:37Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:38Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:39Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:40Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:41Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:42Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:43Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:44Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:45Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:46Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:47Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:48Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:49Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:50Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:51Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:52Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:53Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:54Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:55Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:56Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:57Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:58Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:33:59Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:00Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:01Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:02Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:03Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:04Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:05Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:06Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:07Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:08Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:09Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:10Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:11Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:12Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:13Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:14Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:15Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:16Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:17Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:18Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:19Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:20Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:21Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:22Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:23Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:24Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:25Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:26Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:27Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:28Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:29Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:30Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:31Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:32Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:33Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:34Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:35Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:36Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:37Z" level=error msg="The prom prom probe has been Failed, err: {actual value: 9.281244444444445} is not greater than or equal to {expected value: 10}"
+time="2021-09-21T10:34:37Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:38Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:39Z" level=error msg="The prom prom probe has been Failed, err: {actual value: 7.760311111111112} is not greater than or equal to {expected value: 10}"
+time="2021-09-21T10:34:40Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:41Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:41Z" level=error msg="The prom prom probe has been Failed, err: {actual value: 6.231822222222222} is not greater than or equal to {expected value: 10}"
+time="2021-09-21T10:34:42Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:43Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:43Z" level=error msg="The prom prom probe has been Failed, err: {actual value: 6.231822222222222} is not greater than or equal to {expected value: 10}"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:44Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:45Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:46Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:47Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:48Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:49Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:50Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:51Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:52Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:53Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:54Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:55Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:56Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:57Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:34:58Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:34:59Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:00Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:01Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:02Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:35:03Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:04Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:05Z" level=info msg="helper pod status: Running"
+Traceback (most recent call last):
+  File "//test.py", line 61, in <module>
+    Main()
+  File "//test.py", line 56, in Main
+    db = DBDetails()
+  File "//test.py", line 24, in __init__
+    self.db_conn      = psycopg2.connect(host=t_host, port=t_port, dbname=t_dbname, user=t_name_user, password=t_password)
+  File "/usr/local/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: No route to host
+	Is the server running on host "postgres-application.postgres.svc" (10.100.2.193) and accepting
+	TCP/IP connections on port 5432?
+
+time="2021-09-21T10:35:06Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:07Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:07Z" level=error msg="The check cmd probe has been Failed, err: Unable to get output of cmd command, err: command terminated with exit code 1"
+time="2021-09-21T10:35:08Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:09Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:10Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:11Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:12Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:13Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:14Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:15Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:16Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:17Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:18Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:19Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:20Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:21Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:22Z" level=info msg="helper pod status: Running"
+time="2021-09-21T10:35:23Z" level=info msg="helper pod status: Succeeded"
+time="2021-09-21T10:35:23Z" level=info msg="[Status]: The running status of Pods are as follows" Status=Succeeded Pod=pod-network-loss-helper-lymesw
+time="2021-09-21T10:35:24Z" level=info msg="[Cleanup]: Deleting all the helper pod"
+time="2021-09-21T10:35:26Z" level=info msg="[Confirmation]: pod-network-loss chaos has been injected successfully"
+time="2021-09-21T10:35:26Z" level=info msg="[Status]: Verify that the AUT (Application Under Test) is running (post-chaos)"
+time="2021-09-21T10:35:26Z" level=info msg="[Status]: Checking whether application containers are in ready state"
+time="2021-09-21T10:35:26Z" level=info msg="[Status]: The Container status are as follows" container=postgres Pod=postgres-application-0 Readiness=true
+time="2021-09-21T10:35:28Z" level=info msg="[Status]: Checking whether application pods are in running state"
+time="2021-09-21T10:35:28Z" level=info msg="[Status]: The status of Pods are as follows" Status=Running Pod=postgres-application-0
+time="2021-09-21T10:35:30Z" level=error msg="[Probe]: check probe has been Failed 😢 " ProbeType=cmdProbe ProbeInstance=PostChaos ProbeStatus=Failed ProbeName=check
+time="2021-09-21T10:35:32Z" level=error msg="[Probe]: prom probe has been Failed 😢 " ProbeName=prom ProbeType=promProbe ProbeInstance=PostChaos ProbeStatus=Failed
+time="2021-09-21T10:35:32Z" level=error msg="[Probe]: check probe has been Failed 😢 " ProbeInstance=PostChaos ProbeStatus=Failed ProbeName=check ProbeType=cmdProbe
+time="2021-09-21T10:35:34Z" level=error msg="[Probe]: prom probe has been Failed 😢 " ProbeType=promProbe ProbeInstance=PostChaos ProbeStatus=Failed ProbeName=prom
+time="2021-09-21T10:35:34Z" level=info msg="[The End]: Updating the chaos result of pod-network-loss experiment (EOT)"
