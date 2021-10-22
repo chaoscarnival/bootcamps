@@ -257,9 +257,9 @@ spec:
                             type: cmdProbe
                             mode: Continuous
                             runProperties:
-                              probeTimeout: 20
+                              probeTimeout: 10
                               retry: 2
-                              interval: 5
+                              interval: 2
                               probePollingInterval: 5
                               stopOnFailure: false
                             cmdProbe/inputs:
@@ -340,9 +340,9 @@ spec:
                             type: cmdProbe
                             mode: Continuous
                             runProperties:
-                              probeTimeout: 20
+                              probeTimeout: 10
                               retry: 2
-                              interval: 5
+                              interval: 2
                               probePollingInterval: 5
                               stopOnFailure: false
                             cmdProbe/inputs:
