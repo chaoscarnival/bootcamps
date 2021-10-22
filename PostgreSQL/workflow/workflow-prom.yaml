@@ -257,13 +257,13 @@ spec:
                             type: cmdProbe
                             mode: Continuous
                             runProperties:
-                              probeTimeout: 20
-                              retry: 4
-                              interval: 5
+                              probeTimeout: 10
+                              retry: 2
+                              interval: 2
                               probePollingInterval: 5
                               stopOnFailure: false
                             cmdProbe/inputs:
-                              command: python3 loadGen.py
+                              command: python3 cmdCommand.py
                               source: 
                                 image: litmuschaos/litmus-pg-load:latest
                               comparator:
@@ -341,13 +341,13 @@ spec:
                             type: cmdProbe
                             mode: Continuous
                             runProperties:
-                              probeTimeout: 20
-                              retry: 4
-                              interval: 5
+                              probeTimeout: 10
+                              retry: 2
+                              interval: 2
                               probePollingInterval: 5
                               stopOnFailure: false
                             cmdProbe/inputs:
-                              command: python3 loadGen.py
+                              command: python3 cmdCommand.py
                               source: 
                                 image: litmuschaos/litmus-pg-load:latest
                               comparator:
