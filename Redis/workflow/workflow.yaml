@@ -1,0 +1,330 @@
+kind: Workflow
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  generateName: argowf-chaos-redis-resiliency-  
+  namespace: litmus
+  labels:
+    subject: "redis_workflow"
+spec:
+  templates:
+    - name: custom-chaos
+      steps:
+        - - name: install-chaos-experiments
+            template: install-chaos-experiments
+            arguments: {}
+        - - name: pod-network-latency
+            template: pod-network-latency
+            arguments: {}
+        - - name: pod-cpu-hog
+            template: pod-cpu-hog
+            arguments: {}
+        - - name: pod-io-stress
+            template: pod-io-stress
+            arguments: {}
+        - - name: revert-chaos
+            template: revert-chaos
+            arguments: {}
+        
+    - name: install-chaos-experiments
+      container:
+        image: litmuschaos/k8s:latest
+        command: [sh, -c]
+        args:
+          - "kubectl apply -f https://hub.litmuschaos.io/api/chaos/master?file=charts/generic/experiments.yaml -n
+            {{workflow.parameters.adminModeNamespace}} ; sleep 5"
+    
+    - name: pod-network-latency
+      arguments: {}
+      inputs:
+        artifacts:
+          - name: pod-network-latency
+            path: /tmp/chaosengine-pod-network-latency.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: pod-network-latency
+                  labels:
+                    instance_id: 90321a66-e524-4c44-b5bd-b25344700b4b
+                    workflow_name: custom-chaos-workflow-1637323706
+                spec:
+                  jobCleanUpPolicy: retain
+                  engineState: active
+                  appinfo:
+                    appns: redis
+                    applabel: app=redis
+                    appkind: deployment
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: pod-network-latency
+                      spec:
+                        probe:
+                        - name: "check-redis-db-cr-status"
+                          type: "k8sProbe"
+                          k8sProbe/inputs:
+                            group: ""
+                            version: "v1"
+                            resource: "pods"
+                            namespace: "redis"
+                            fieldSelector: "status.phase=Running"
+                            labelSelector: "app=redis"
+                            operation: "present"
+                          mode: "Continuous"
+                          runProperties:
+                            probeTimeout: 1
+                            interval: 1
+                            retry: 1
+                            probePollingInterval: 1
+                        - name: check
+                          type: cmdProbe
+                          mode: "Continuous"
+                          runProperties:
+                            probeTimeout: 8
+                            retry: 2
+                            interval: 4
+                            probePollingInterval: 4
+                            stopOnFailure: false
+                          cmdProbe/inputs:
+                            command: python3 -u redis-cmd.py
+                            source: 
+                              image: litmuschaos/litmus-redis-load:latest
+                            comparator:
+                              type: string
+                              criteria: equal
+                              value: "0"
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "60"
+                            - name: NETWORK_LATENCY
+                              value: "4000"
+                            - name: CONTAINER_RUNTIME
+                              value: docker
+                            - name: SOCKET_PATH
+                              value: /var/run/docker.sock
+                            - name: PODS_AFFECTED_PERC
+                              value: ""
+                            - name: RAMP_TIME
+                              value: "5"
+      outputs: {}
+      metadata:
+        labels:
+          weight: "10"
+      container:
+        name: ""
+        image: litmuschaos/litmus-checker:latest
+        args:
+          - -file=/tmp/chaosengine-pod-network-latency.yaml
+          - -saveName=/tmp/engine-name
+        resources: {}
+
+    - name: pod-cpu-hog
+      arguments: {}
+      inputs:
+        artifacts:
+          - name: pod-cpu-hog
+            path: /tmp/chaosengine-pod-cpu-hog.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: pod-cpu-hog
+                  labels:
+                    instance_id: 82680db9-6776-4070-9bc5-a6627e7240d8
+                    workflow_name: custom-chaos-workflow-1637323706
+                spec:
+                  engineState: active
+                  appinfo:
+                    appns: redis
+                    applabel: app=redis
+                    appkind: deployment
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: pod-cpu-hog
+                      spec:
+                        probe:
+                        - name: "check-probe-success"
+                          type: "promProbe"
+                          promProbe/inputs:
+                            endpoint: "http://prometheus-k8s.monitoring.svc.cluster.local:9090"
+                            query: "sum(rate(redis_commands_total{}[40s]))"
+                            comparator:
+                              criteria: ">=" #supports >=,<=,>,<,==,!= comparision
+                              value: "1200"
+                          mode: "Continuous"
+                          runProperties:  
+                            probeTimeout: 2
+                            interval: 1
+                            retry: 2
+                        - name: check
+                          type: cmdProbe
+                          mode: "Continuous"
+                          runProperties:
+                            probeTimeout: 1
+                            retry: 1
+                            interval: 1
+                            probePollingInterval: 1
+                            stopOnFailure: false
+                          cmdProbe/inputs:
+                            command: python3 -u redis-cmd.py
+                            source: 
+                              image: litmuschaos/litmus-redis-load:latest
+                            comparator:
+                              type: string
+                              criteria: equal
+                              value: "0"
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "60"
+                            - name: CPU_CORES
+                              value: "1"
+                            - name: PODS_AFFECTED_PERC
+                              value: ""
+                            - name: CONTAINER_RUNTIME
+                              value: docker
+                            - name: SOCKET_PATH
+                              value: /var/run/docker.sock
+      outputs: {}
+      metadata:
+        labels:
+          weight: "10"
+      container:
+        name: ""
+        image: litmuschaos/litmus-checker:latest
+        args:
+          - -file=/tmp/chaosengine-pod-cpu-hog.yaml
+          - -saveName=/tmp/engine-name
+        resources: {}
+
+    - name: pod-io-stress
+      arguments: {}
+      inputs:
+        artifacts:
+          - name: pod-io-stress
+            path: /tmp/chaosengine-pod-io-stress.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: pod-io-stress
+                  labels:
+                    instance_id: a85d3479-5849-4bd2-be2b-24287071cd1d
+                    context: pod-io-stress_litmus
+                    workflow_name: custom-chaos-workflow-1637917910
+                spec:
+                  appinfo:
+                    appns: redis
+                    applabel: app=redis
+                    appkind: deployment
+                  jobCleanUpPolicy: retain
+                  engineState: active
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: pod-io-stress
+                      spec:
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "100"
+                            - name: FILESYSTEM_UTILIZATION_PERCENTAGE
+                              value: "100"
+                            - name: CONTAINER_RUNTIME
+                              value: docker
+                            - name: SOCKET_PATH
+                              value: /var/run/docker.sock
+                            - name: NUMBER_OF_WORKERS
+                              value: "7"
+                        probe:
+                        - name: "check-redis-db-cr-status"
+                          type: "k8sProbe"
+                          k8sProbe/inputs:
+                            group: ""
+                            version: "v1"
+                            resource: "pods"
+                            namespace: "redis"
+                            fieldSelector: "status.phase=Running"
+                            labelSelector: "app=redis"
+                            operation: "present"
+                          mode: "Continuous"
+                          runProperties:
+                            probeTimeout: 1
+                            interval: 1
+                            retry: 1
+                            probePollingInterval: 1
+                        - name: "check-probe-success"
+                          type: "promProbe"
+                          promProbe/inputs:
+                            endpoint: "http://prometheus-k8s.monitoring.svc.cluster.local:9090"
+                            query: "sum(rate(redis_commands_total{}[40s]))"
+                            comparator:
+                              criteria: ">=" #supports >=,<=,>,<,==,!= comparision
+                              value: "900"
+                          mode: "Continuous"
+                          runProperties:  
+                            probeTimeout: 3
+                            interval: 2
+                            retry: 3
+                        - name: check
+                          type: cmdProbe
+                          mode: "Continuous"
+                          runProperties:
+                            probeTimeout: 1
+                            retry: 1
+                            interval: 1
+                            probePollingInterval: 1
+                            stopOnFailure: false
+                          cmdProbe/inputs:
+                            command: python3 -u redis-cmd.py
+                            source: 
+                              image: litmuschaos/litmus-redis-load:latest
+                            comparator:
+                              type: string
+                              criteria: equal
+                              value: "0"
+                  annotationCheck: "false"
+      outputs: {}
+      metadata:
+        labels:
+          weight: "10"
+      container:
+        name: ""
+        image: litmuschaos/litmus-checker:latest
+        args:
+          - -file=/tmp/chaosengine-pod-io-stress.yaml
+          - -saveName=/tmp/engine-name
+        resources: {}
+    
+    - name: revert-chaos
+      container:
+        name: ""
+        image: litmuschaos/k8s:latest
+        command:
+          - sh
+          - -c
+        args:
+          - "kubectl delete chaosengine -l 'instance_id in
+            (8feb4170-b055-4066-ae34-a2463c46c957,
+            d12365a0-dd6e-4ecd-b849-e2896569869f, )' -n
+            {{workflow.parameters.adminModeNamespace}} "
+
+  entrypoint: custom-chaos
+  arguments:
+    parameters:
+      - name: adminModeNamespace
+        value: litmus
+  serviceAccountName: argo-chaos
+  podGC:
+    strategy: OnWorkflowCompletion
+  securityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+status:
+  ? startedAt
+  ? finishedAt

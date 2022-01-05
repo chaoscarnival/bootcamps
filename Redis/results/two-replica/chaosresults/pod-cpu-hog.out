@@ -1,0 +1,69 @@
+metadata:
+  name: pod-cpu-hogv2rrr-pod-cpu-hog
+  namespace: litmus
+  uid: 1dc10d7b-ba15-48e3-9991-e9f24683ab57
+  resourceVersion: "239646"
+  generation: 2
+  creationTimestamp: 2022-01-03T09:21:12Z
+  labels:
+    app.kubernetes.io/component: experiment-job
+    app.kubernetes.io/part-of: litmus
+    app.kubernetes.io/runtime-api-usage: "true"
+    app.kubernetes.io/version: latest
+    chaosUID: c52089ff-15bd-4ea7-a020-e1f9831b3b48
+    controller-uid: bbc8212d-43d1-4c4a-822e-6d2f016153bc
+    job-name: pod-cpu-hog-600nqi
+    name: pod-cpu-hog
+  managedFields:
+    - manager: experiments
+      operation: Update
+      apiVersion: litmuschaos.io/v1alpha1
+      time: 2022-01-03T09:21:12Z
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app.kubernetes.io/component: {}
+            f:app.kubernetes.io/part-of: {}
+            f:app.kubernetes.io/runtime-api-usage: {}
+            f:app.kubernetes.io/version: {}
+            f:chaosUID: {}
+            f:controller-uid: {}
+            f:job-name: {}
+            f:name: {}
+        f:spec:
+          .: {}
+          f:engine: {}
+          f:experiment: {}
+        f:status:
+          .: {}
+          f:experimentStatus: {}
+          f:history: {}
+          f:probeStatus: {}
+spec:
+  engine: pod-cpu-hogv2rrr
+  experiment: pod-cpu-hog
+status:
+  experimentStatus:
+    phase: Completed
+    verdict: Pass
+    failStep: N/A
+    probeSuccessPercentage: "100"
+  probeStatus:
+    - name: check-probe-success
+      type: promProbe
+      status:
+        Continuous: "Passed 👍 "
+    - name: check
+      type: cmdProbe
+      status:
+        Continuous: "Passed 👍 "
+  history:
+    passedRuns: 1
+    failedRuns: 0
+    stoppedRuns: 0
+    targets:
+      - name: redis-0
+        kind: pod
+        chaosStatus: reverted
