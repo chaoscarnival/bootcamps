@@ -43,8 +43,8 @@ The demo involves using Litmus to inject chaos on a Redis application, at the sa
 - We can visualize using the dotted area. 
 
 
-![image](./results/single-replica/qps.png)
-![image](./results/single-replica/qps_rate.png)
+![image](./results/single-replica/graphs/qps.png)
+![image](./results/single-replica/graphs/qps_rate.png)
 
 - Experiment logs and chaosresult has been added [here](./results/single-replica)
 
@@ -55,8 +55,8 @@ The demo involves using Litmus to inject chaos on a Redis application, at the sa
 - Experiment Pod CPU Hog: Pod CPU Hog consumes the CPU resources of the Redis application replica, due to database potential slowness/unavailability of replica high CPU load until the replica pod restarts. Whereas 2nd replica is continuously healthy which will maintain the resiliency of the application.
 - Experiment Pod-io-stress: Stressing the disk with continuous and heavy IO, due to two replicas degradation in stress reads/write operations is not affecting read/write load and the query per second not varying.
 
-![image](./results/two-replica/qps.png)
-![image](./results/two-replica/qps_rate.png)
+![image](./results/two-replica/graphs/qps.png)
+![image](./results/two-replica/graphs/qps_rate.png)
 
 - Experiment logs and chaosresult has been added [here](./results/two-replica).
 
