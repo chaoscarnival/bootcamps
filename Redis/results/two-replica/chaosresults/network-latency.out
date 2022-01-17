@@ -1,0 +1,69 @@
+metadata:
+  name: pod-network-latencypdhvz-pod-network-latency
+  namespace: litmus
+  uid: 126167f0-f232-47eb-a354-cff3e26ba9ae
+  resourceVersion: "239384"
+  generation: 2
+  creationTimestamp: 2022-01-03T09:17:34Z
+  labels:
+    app.kubernetes.io/component: experiment-job
+    app.kubernetes.io/part-of: litmus
+    app.kubernetes.io/runtime-api-usage: "true"
+    app.kubernetes.io/version: latest
+    chaosUID: 12edac9b-2179-4e2c-9d85-53e4deb17623
+    controller-uid: 0a376c5c-fdaa-401c-9bb6-9c47a9ca8397
+    job-name: pod-network-latency-0y1s2h
+    name: pod-network-latency
+  managedFields:
+    - manager: experiments
+      operation: Update
+      apiVersion: litmuschaos.io/v1alpha1
+      time: 2022-01-03T09:17:34Z
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app.kubernetes.io/component: {}
+            f:app.kubernetes.io/part-of: {}
+            f:app.kubernetes.io/runtime-api-usage: {}
+            f:app.kubernetes.io/version: {}
+            f:chaosUID: {}
+            f:controller-uid: {}
+            f:job-name: {}
+            f:name: {}
+        f:spec:
+          .: {}
+          f:engine: {}
+          f:experiment: {}
+        f:status:
+          .: {}
+          f:experimentStatus: {}
+          f:history: {}
+          f:probeStatus: {}
+spec:
+  engine: pod-network-latencypdhvz
+  experiment: pod-network-latency
+status:
+  experimentStatus:
+    phase: Completed
+    verdict: Pass
+    failStep: N/A
+    probeSuccessPercentage: "100"
+  probeStatus:
+    - name: check-redis-db-cr-status
+      type: k8sProbe
+      status:
+        Continuous: "Passed 👍 "
+    - name: check
+      type: cmdProbe
+      status:
+        Continuous: "Passed 👍 "
+  history:
+    passedRuns: 1
+    failedRuns: 0
+    stoppedRuns: 0
+    targets:
+      - name: redis-1
+        kind: pod
+        chaosStatus: reverted

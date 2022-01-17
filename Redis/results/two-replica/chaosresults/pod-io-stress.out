@@ -1,0 +1,73 @@
+metadata:
+  name: pod-io-stresszs4vq-pod-io-stress
+  namespace: litmus
+  uid: 0a84968c-fd45-4187-bff6-7f472e8ed8d5
+  resourceVersion: "244339"
+  generation: 2
+  creationTimestamp: 2022-01-03T11:06:27Z
+  labels:
+    app.kubernetes.io/component: experiment-job
+    app.kubernetes.io/part-of: litmus
+    app.kubernetes.io/runtime-api-usage: "true"
+    app.kubernetes.io/version: latest
+    chaosUID: ef2246f0-79e1-4b5b-8970-e5eeb1d98f47
+    controller-uid: bb7d92f9-549d-428e-a31a-9f90b3a6eff8
+    job-name: pod-io-stress-k4l6bh
+    name: pod-io-stress
+  managedFields:
+    - manager: experiments
+      operation: Update
+      apiVersion: litmuschaos.io/v1alpha1
+      time: 2022-01-03T11:06:27Z
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app.kubernetes.io/component: {}
+            f:app.kubernetes.io/part-of: {}
+            f:app.kubernetes.io/runtime-api-usage: {}
+            f:app.kubernetes.io/version: {}
+            f:chaosUID: {}
+            f:controller-uid: {}
+            f:job-name: {}
+            f:name: {}
+        f:spec:
+          .: {}
+          f:engine: {}
+          f:experiment: {}
+        f:status:
+          .: {}
+          f:experimentStatus: {}
+          f:history: {}
+          f:probeStatus: {}
+spec:
+  engine: pod-io-stresszs4vq
+  experiment: pod-io-stress
+status:
+  experimentStatus:
+    phase: Completed
+    verdict: Fail
+    failStep: N/A
+    probeSuccessPercentage: "133"
+  probeStatus:
+    - name: check-redis-db-cr-status
+      type: k8sProbe
+      status:
+        Continuous: "Passed 👍 "
+    - name: check-probe-success
+      type: promProbe
+      status:
+        Continuous: "Better Luck Next Time 👎 "
+    - name: check
+      type: cmdProbe
+      status:
+        Continuous: "Passed 👍 "
+  history:
+    passedRuns: 0
+    failedRuns: 1
+    stoppedRuns: 0
+    targets:
+      - name: redis-0
+        kind: pod
+        chaosStatus: reverted
