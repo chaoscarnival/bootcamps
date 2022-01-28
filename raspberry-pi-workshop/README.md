@@ -99,12 +99,12 @@ Password: admin
 ```
 
 #### Grafana Dashboard
-
-![Probe Duration](images/probe-duration.png)
-![Probe Success](images/probe-success.png)
+<img style="align:left; width:500px" src="images/probe-duration.png">
+<img style="align:center; width:500px" src="images/probe-success.png">
 
 #### Final Pod Status
-![Pod Status](images/pods-status.png)
+<img style="align:center; width:450px" src="images/pods-status.png">
+
 
 ### Running Chaos
 You can use the `home-assistant-unavailability-workflow.yaml` workflow manifest to run the `pod-delete` chaos on the application. Or you can set up your own group of experiments to run.
