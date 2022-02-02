@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-assistant
+  labels:
+    app: home-assistant
+spec:
+  selector:
+    matchLabels:
+      app: home-assistant
+  template:
+    metadata:
+      labels:
+        app: home-assistant
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: home-assistant
+        image: homeassistant/home-assistant:2021.12.10
+        imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: home-assistant
+  name: home-assistant
+spec:
+  ports:
+  - port: 8123
+    protocol: TCP
+    targetPort: 8123
+  selector:
+    app: home-assistant
